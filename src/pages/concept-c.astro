@@ -163,8 +163,9 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
             {products.map((p, i) => (
               <a href="#" class="prod">
                 <span class="prod-n">0{i + 1}</span>
+                <span class="prod-ic"><Icon name={productIcons[p.key]} /></span>
                 <div>
-                  <h3><span class="prod-ic"><Icon name={productIcons[p.key]} /></span>{p.name}</h3>
+                  <h3>{p.name}</h3>
                   <p>{p.body}</p>
                 </div>
                 <span class="prod-tag k">{p.tagline}</span>
@@ -403,7 +404,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .sec-head .k { color: var(--cy); }
 
   .prods { border-top: 1px solid var(--line); }
-  .prod { display: grid; grid-template-columns: 5rem 1.6fr 1fr 2.5rem; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--line); color: var(--ink); position: relative; transition: padding 0.25s, color 0.25s; }
+  .prod { display: grid; grid-template-columns: 5rem 4.5rem 1.6fr 1fr 2.5rem; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--line); color: var(--ink); position: relative; transition: padding 0.25s, color 0.25s; }
   .prod::before { content: ''; position: absolute; inset: 0; background: var(--hi); transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s; z-index: 0; }
   .prod > * { position: relative; z-index: 1; }
   .prod:hover { color: #0a0a0a; padding-inline: 1.5rem; }
@@ -414,8 +415,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; }
   .prod p { color: var(--muted); max-width: 36rem; }
   .prod-go { font-size: 1.6rem; justify-self: end; }
-  .prod h3 { display: flex; align-items: center; gap: 0.9rem; }
-  .prod-ic { display: inline-grid; place-items: center; width: 2.6rem; height: 2.6rem; flex-shrink: 0; font-size: 1.25rem; color: var(--cy); border: 1.5px solid currentColor; }
+  .prod-ic { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; font-size: 1.9rem; color: var(--cy); border: 1.5px solid currentColor; }
   .prod:hover .prod-ic { color: #0a0a0a; }
 
   .ai { background: var(--cy); color: #0a0a0a; padding: 7rem 0; background-image: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(10, 10, 10, 0.018) 22px 44px); }
@@ -495,7 +495,8 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
     .steps li:nth-child(n + 3) { border-top: 1px solid var(--line); }
     .ind { grid-template-columns: repeat(3, 1fr); }
     .posts { grid-template-columns: 1fr 1fr; }
-    .prod { grid-template-columns: 4rem 1fr 2rem; }
+    .prod { grid-template-columns: 4rem 3.5rem 1fr 2rem; }
+    .prod-ic { width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
     .prod-tag { display: none; }
     .ftr-in { grid-template-columns: 1fr 1fr; }
     .ftr-brand { grid-column: 1 / -1; }
@@ -509,7 +510,8 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
     .steps, .ind, .posts { grid-template-columns: 1fr; }
     .steps li + li { border-left: 0; border-top: 1px solid var(--line); }
     .ind a { min-height: 0; }
-    .prod { grid-template-columns: 1fr 2rem; gap: 1rem; }
+    .prod { grid-template-columns: 3rem 1fr 2rem; gap: 1rem; }
+    .prod-ic { width: 3rem; height: 3rem; font-size: 1.3rem; align-self: start; }
     .prod-n { display: none; }
     .sec-head.row { flex-direction: column; align-items: start; }
     .award { flex-direction: column; align-items: start; }
