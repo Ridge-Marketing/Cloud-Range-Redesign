@@ -5,6 +5,8 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../data/icons';
 import {
   hero, nav, products, stats, steps, industries,
   customers, quote, award, posts, footer, contact,
@@ -27,6 +29,25 @@ const industryPhotos: Record<string, { src: ImageMetadata; alt: string }> = {
   'Higher Education':        { src: labImg,      alt: 'Students working together in a university computer lab' },
   'MSSPs':                   { src: opsFloorImg, alt: 'Large operations floor with rows of workstations and wall displays' },
 };
+
+// Font Awesome Sharp Regular, same set as concept C.
+const productIcons: Record<string, IconName> = {
+  'platform':  'server',
+  'live-fire': 'crosshairs',
+  'ai':        'microchip-ai',
+  'labs':      'flask',
+  'tabletop':  'chess-knight',
+};
+const stepIcons: IconName[] = ['clone', 'bullseye-arrow', 'gauge-high', 'file-certificate'];
+const industryIcons: Record<string, IconName> = {
+  'Commercial Enterprise':   'building',
+  'Critical Infrastructure': 'transformer-bolt',
+  'Government & Military':   'landmark-flag',
+  'Higher Education':        'graduation-cap',
+  'MSSPs':                   'shield-halved',
+};
+const assumed   = ['Training completed', 'Tools deployed', 'AI tested in isolation', 'Annual tabletop'];
+const validated = ['Performance under live attack', 'Detection proven in your stack', 'Agents scored on real decisions', 'Continuous, measured improvement'];
 
 const trace = [
   { who: 'agent', step: 'Alert ingested',         detail: 'EDR · lsass.exe accessed by rundll32',  state: 'ok'   },
@@ -209,21 +230,11 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
           <div class="contrast">
             <div class="col old">
               <p class="mono label">Assumed</p>
-              <ul>
-                <li>Training completed</li>
-                <li>Tools deployed</li>
-                <li>AI tested in isolation</li>
-                <li>Annual tabletop</li>
-              </ul>
+              <ul>{assumed.map((t) => <li><Icon name="circle-xmark" class="li-ic" />{t}</li>)}</ul>
             </div>
             <div class="col new">
               <p class="mono label">Validated</p>
-              <ul>
-                <li>Performance under live attack</li>
-                <li>Detection proven in your stack</li>
-                <li>Agents scored on real decisions</li>
-                <li>Continuous, measured improvement</li>
-              </ul>
+              <ul>{validated.map((t) => <li><Icon name="circle-check" class="li-ic" />{t}</li>)}</ul>
             </div>
           </div>
         </div>
@@ -276,7 +287,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
                     </div>
                   )}
                 </div>
-                <p class="mono card-n">0{i + 1}</p>
+                <p class="card-meta"><span class="card-ic"><Icon name={productIcons[p.key]} /></span><span class="mono card-n">0{i + 1}</span></p>
                 <h3>{p.name}</h3>
                 <p class="card-tag">{p.tagline}</p>
                 <p class="muted">{p.body}</p>
@@ -333,9 +344,12 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
             <h2>Real experience, before the real incident.</h2>
           </div>
           <ol class="steps">
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <li>
-                <p class="mono step-n">{s.n}</p>
+                <div class="step-top">
+                  <p class="mono step-n">{s.n}</p>
+                  <Icon name={stepIcons[i]} size="1.6rem" class="step-ic" />
+                </div>
                 <h3>{s.title}</h3>
                 <p class="muted">{s.body}</p>
               </li>
@@ -371,6 +385,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
                     <Image src={industryPhotos[i.name].src} alt={industryPhotos[i.name].alt} widths={[400, 700]} sizes="(max-width: 640px) 100vw, (max-width: 1080px) 33vw, 240px" />
                   </div>
                   <div class="ind-body">
+                    <div class="ind-ic"><Icon name={industryIcons[i.name]} /></div>
                     <h3>{i.name}</h3>
                     <p class="muted">{i.body}</p>
                   </div>
@@ -390,6 +405,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
             <figcaption class="mono">— {quote.source}</figcaption>
           </figure>
           <div class="award">
+            <Icon name="trophy-star" size="2.25rem" class="award-ic" />
             <p class="mono label">Award</p>
             <p class="award-t">{award.title}</p>
             <p class="muted">{award.body}</p>
@@ -612,9 +628,12 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .contrast ul { display: grid; gap: 0.9rem; margin-top: 1rem; }
   .old { background: var(--bg-2); }
   .old li { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(255, 93, 93, 0.6); }
+  .contrast li { display: flex; gap: 0.65rem; align-items: baseline; }
+  .contrast :global(.li-ic) { flex-shrink: 0; position: relative; top: 0.1em; }
+  .old :global(.li-ic) { color: #e0605a; }
+  .new :global(.li-ic) { color: var(--lime); }
   .new { background: linear-gradient(160deg, rgba(143, 204, 10, 0.12), transparent 70%); border-left: 1px solid var(--line-2); }
   .new .label { color: var(--lime); }
-  .new li::before { content: '✓  '; color: var(--lime); }
 
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
   .card { position: relative; display: flex; flex-direction: column; gap: 0.6rem; padding: 1.75rem; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; color: var(--text); transition: border-color 0.2s, transform 0.2s; grid-column: span 2; min-height: 260px; }
@@ -622,6 +641,9 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .card-0, .card-1 { grid-column: span 3; }
   .card-0 { background: radial-gradient(120% 120% at 100% 0%, rgba(147, 0, 254, 0.3), transparent 55%), var(--bg-2); }
   .card-n { color: var(--muted); }
+  .card-meta { display: flex; justify-content: space-between; align-items: center; }
+  .card-ic { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; font-size: 1.2rem; color: var(--purple-t); background: rgba(147, 0, 254, 0.14); border: 1px solid rgba(167, 51, 255, 0.35); }
+  .card:hover .card-ic { color: #fff; background: var(--purple); }
   .card h3 { font-size: 1.45rem; margin-top: auto; }
   .card-tag { color: var(--lime); font-weight: 500; }
   .card-go { color: var(--muted); margin-top: 0.5rem; }
@@ -635,6 +657,8 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
   .steps li { background: var(--bg); padding: 2rem 1.75rem; display: grid; gap: 0.75rem; align-content: start; }
   .step-n { color: var(--lime); font-size: 0.85rem; }
+  .step-top { display: flex; justify-content: space-between; align-items: center; }
+  .steps :global(.step-ic) { color: var(--purple-t); }
   .steps li { position: relative; }
   .steps li::before { content: ''; position: absolute; top: 0; left: 1.75rem; width: 32px; height: 3px; background: var(--lime); }
   .steps h3 { font-size: 1.6rem; }
@@ -650,15 +674,17 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .ind a { position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid var(--line); border-radius: 14px; color: var(--text); overflow: hidden; background: var(--bg-2); transition: 0.2s; }
   .ind-img { aspect-ratio: 4 / 3; }
   .ind-body { display: grid; gap: 0.5rem; padding: 1.25rem 1.25rem 2.5rem; }
+  .ind-ic { position: relative; z-index: 2; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin: -2.625rem 0 0.25rem; font-size: 1.3rem; color: #fff; background: var(--purple); box-shadow: 0 8px 20px -6px rgba(147, 0, 254, 0.7); }
   .ind a:hover .ind-img img { transform: scale(1.05); }
   .ind li:first-child .ind-img img { object-position: 12% 70%; }
   .ind a:hover { border-color: var(--purple-2); background: var(--bg-2); }
-  .ind span { position: absolute; right: 1.25rem; bottom: 1.1rem; color: var(--lime); }
+  .ind a > span { position: absolute; right: 1.25rem; bottom: 1.1rem; color: var(--lime); }
 
   .proof { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
   .quote { padding: 3rem; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); }
   .quote blockquote { font-family: 'Space Grotesk Variable', sans-serif; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; }
   .quote figcaption { color: var(--muted); margin-top: 1.5rem; }
+  .award :global(.award-ic) { color: #ff8500; margin-bottom: auto; }
   .award { padding: 2.25rem; border-radius: 14px; border: 1px solid rgba(255, 133, 0, 0.45); background: linear-gradient(160deg, rgba(255, 133, 0, 0.16), transparent); display: grid; align-content: end; gap: 0.5rem; }
   .award-t { font-family: 'Space Grotesk Variable', sans-serif; font-size: 1.6rem; line-height: 1.15; font-weight: 600; }
 
