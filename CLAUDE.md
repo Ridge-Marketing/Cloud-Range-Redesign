@@ -22,7 +22,7 @@ npm run preview  # serve dist/
 
 - **A:** dark, product-UI hero, green-duotone photography, alternating light sections. Brand green leads (buttons, bands, glows, icons); purple is reserved for AI elements; orange means warnings. No military imagery.
 - **B:** cool off-white (not beige), DM Serif Display for headings, Poppins for UI, muted purple `#7A45D6` and bright green `#8FE31A`. The first hero line stays sans.
-- **C:** brand colors, green-led: brand green `#84BD00` leads (headline, stats, buttons, CTA band); purple `#9300FE` is secondary (AI band, ticker, defenders; `#B77BFF` for purple text on dark); bone `#F3EFE6` on ink. Stencil font only on "PROVEN." and the CTA and product numbers; everything else is Inter extra-bold. Keep the transparent outline stroke on "NOT ASSUMED." exactly as is, including its inner contour lines.
+- **C:** brand colors, green-led: brand green `#84BD00` leads (headline, stats, buttons, CTA band); purple `#9300FE` is secondary (AI band, ticker, defenders; `#B77BFF` for purple text on dark); white on ink. Stencil font only on "PROVEN." and the CTA and product numbers; everything else is Inter extra-bold. Keep the transparent outline stroke on "NOT ASSUMED." exactly as is, including its inner contour lines.
 - Brand colors from the live site: purple `#9300FE`, green `#84BD00` (logo green `#79B92F`), orange `#FF8500`.
 
 ## Conventions

@@ -49,7 +49,7 @@ For comparison, competitor desktop performance ranges from 99 (SimSpace) to 29 (
 
 ## Placeholders to replace
 
-- Customer logos in `public/logos/` are PNGs sliced from the live site's logo strips (concept A shows them in grayscale). Concepts B and C still render the names as text. Swap in SVGs before launch.
+- Customer logos in `public/logos/` are PNGs sliced from the live site's logo strips (concept A shows them in grayscale). Concept B still renders the names as text. Swap in SVGs before launch.
 - Photos in `src/assets/photos/` are public-domain civilian placeholders (see `CREDITS.md`). Concept A shows them with a CSS purple duotone, so brand or stock photography drops straight in.
 - Product UI in the heroes (scores, timelines, report card) is illustrative mock data.
 - All links other than in-page anchors point to `#`.
