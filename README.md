@@ -15,7 +15,7 @@ npm run build    # static output in dist/
 | `/`          | Review hub       | The three concept cards                                                    |
 | `/concept-a` | **Command**      | Dark, product-led. Portal mock over duotone photography, exercise band, product visuals. |
 | `/concept-b` | **The Exercise** | Light, DM Serif Display + Poppins. One live-fire exercise, minute by minute. |
-| `/concept-c` | **Live-Fire**    | Loud, stencil type, hazard yellow `#FFD60A` + cyan `#0AF3FF` on ink, animated attack-path diagram. |
+| `/concept-c` | **Live-Fire**    | Loud, stencil type, brand green `#84BD00` + purple `#9300FE` on ink, animated attack-path diagram. |
 
 A floating switcher at the bottom of each concept is for review only.
 

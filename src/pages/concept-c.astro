@@ -1,8 +1,8 @@
 ---
 // Concept C — "Live-Fire"
 // Loud, high-contrast, brand-forward. Leans on the stencil wordmark and the
-// hazard yellow + electric cyan on ink: range-signage energy no competitor owns.
-// Yellow = brand / action, cyan = AI and defenders, red = adversary.
+// brand green + purple on ink.
+// Green = brand / action (the lead color), purple = AI and defenders, red = adversary.
 // All motion is CSS-only.
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
@@ -317,9 +317,10 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
     --ink:    #f3efe6;
     --muted:  #9a968c;
     --line:   rgba(243, 239, 230, 0.12);
-    --hi:     #ffd60a;
-    --hi-2:   #ffe55c;
-    --cy:     #0af3ff;
+    --hi:     #84bd00;
+    --hi-2:   #9ad62a;
+    --cy:     #9300fe;
+    --cy-t:   #b77bff;
     --red:    #ff4d3d;
     background: var(--bg);
     color: var(--ink);
@@ -359,7 +360,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .mnav { display: none; }
 
   .hero { padding: 4rem 0 0; position: relative; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 60% at 85% 5%, rgba(255, 214, 10, 0.16), transparent 70%), radial-gradient(900px 820px at -4% 780px, rgba(10, 243, 255, 0.16), transparent 70%); pointer-events: none; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 60% at 85% 5%, rgba(132, 189, 0, 0.2), transparent 70%), radial-gradient(900px 820px at -4% 780px, rgba(147, 0, 254, 0.24), transparent 70%); pointer-events: none; }
   .hero > .wrap { position: relative; z-index: 1; }
   .hero-k { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; color: var(--ink); }
   .rec { width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 12px var(--red); animation: blink 1.2s steps(2) infinite; }
@@ -383,19 +384,19 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .nd text { fill: var(--muted); font: 600 10px 'JetBrains Mono Variable', monospace; text-anchor: middle; text-transform: uppercase; letter-spacing: 0.06em; }
   .nd.red rect { fill: var(--red); stroke: var(--red); }
   .nd.hit rect { stroke: var(--red); fill: #2a1311; }
-  .nd.blue rect { stroke: var(--cy); fill: #04262a; }
-  .nd.blue text { fill: var(--cy); }
+  .nd.blue rect { stroke: var(--cy-t); fill: #1d0a33; }
+  .nd.blue text { fill: var(--cy-t); }
   .topo figcaption { display: flex; flex-wrap: wrap; gap: 0.75rem 1.75rem; padding: 1rem 1.25rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: #cfcabf; align-items: center; }
   .topo figcaption .k { margin-left: auto; }
   .sw { display: inline-block; width: 10px; height: 10px; margin-right: 0.45rem; vertical-align: -1px; }
   .sw.red { background: var(--red); }
   .sw.hit { border: 1.5px solid var(--red); }
-  .sw.blue { background: var(--cy); }
+  .sw.blue { background: var(--cy-t); }
 
-  .ticker { background: var(--cy); color: #0a0a0a; overflow: hidden; padding: 0.9rem 0; }
+  .ticker { background: var(--cy); color: #fff; overflow: hidden; padding: 0.9rem 0; }
   .ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
   .ticker span { font: 700 0.9rem 'JetBrains Mono Variable', monospace; text-transform: uppercase; white-space: nowrap; padding-right: 1.5rem; }
-  .ticker b { margin-left: 1.5rem; color: #0a0a0a; }
+  .ticker b { margin-left: 1.5rem; color: var(--hi-2); }
   @keyframes scroll { to { transform: translateX(-50%); } }
 
   .stats { border-bottom: 1px solid var(--line); }
@@ -409,7 +410,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .sec { padding: 7rem 0; border-bottom: 1px solid var(--line); }
   .sec-head { margin-bottom: 3.5rem; display: grid; gap: 1.25rem; max-width: 60rem; }
   .sec-head.row { max-width: none; display: flex; justify-content: space-between; align-items: end; }
-  .sec-head .k { color: var(--cy); }
+  .sec-head .k { color: var(--cy-t); }
 
   .prods { border-top: 1px solid var(--line); }
   .prod { display: grid; grid-template-columns: 5rem 4.5rem 1.6fr 1fr 2.5rem; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--line); color: var(--ink); position: relative; transition: padding 0.25s, color 0.25s; }
@@ -423,13 +424,13 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; text-transform: none; letter-spacing: -0.035em; }
   .prod p { color: var(--muted); max-width: 36rem; }
   .prod-go { font-size: 1.6rem; justify-self: end; }
-  .prod-ic { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; font-size: 2.4rem; color: var(--cy); }
+  .prod-ic { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; font-size: 2.4rem; color: var(--cy-t); }
   .prod:hover .prod-ic { color: #0a0a0a; }
 
-  .ai { background: var(--cy); color: #0a0a0a; padding: 7rem 0; background-image: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(10, 10, 10, 0.018) 22px 44px); }
+  .ai { background: var(--cy); color: #fff; padding: 7rem 0; background-image: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(255, 255, 255, 0.025) 22px 44px); }
   .ai-in { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: end; }
-  .ai .k { color: #0a0a0a; margin-bottom: 1.25rem; }
-  .ai .btn-dark:hover { color: var(--cy); }
+  .ai .k { color: #fff; margin-bottom: 1.25rem; }
+  .ai .btn-dark:hover { color: var(--hi-2); }
   .ai h2 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); }
   .ai p:not(.k) { font-size: 1.2rem; font-weight: 500; margin-bottom: 2rem; }
 
@@ -463,7 +464,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .ind a:hover { background: var(--bg-2); }
   .ind a:hover h3 { color: var(--hi); }
   .ind :global(.ind-ic) { color: var(--hi); margin-bottom: 2.5rem; transition: transform 0.2s, color 0.2s; }
-  .ind a:hover :global(.ind-ic) { color: var(--cy); transform: translateY(-3px); }
+  .ind a:hover :global(.ind-ic) { color: var(--cy-t); transform: translateY(-3px); }
   .ind p { color: var(--muted); font-size: 0.92rem; }
 
   .posts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
