@@ -6,6 +6,8 @@
 // All motion is CSS-only.
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../data/icons';
 import {
   hero, nav, products, stats, steps, industries,
   customers, quote, award, posts, footer, contact,
@@ -33,6 +35,22 @@ const links = [
   ['ad', 'siem'], ['ad', 'ot'], ['siem', 'ai'], ['ot', 'ai'],
 ];
 const attack = ['inet', 'fw', 'mail', 'ad', 'ot'];
+
+const productIcons: Record<string, IconName> = {
+  'platform':  'server',
+  'live-fire': 'crosshairs',
+  'ai':        'microchip-ai',
+  'labs':      'flask',
+  'tabletop':  'chess-knight',
+};
+const stepIcons: IconName[] = ['clone', 'bullseye-arrow', 'gauge-high', 'file-certificate'];
+const industryIcons: Record<string, IconName> = {
+  'Commercial Enterprise':   'building',
+  'Critical Infrastructure': 'transformer-bolt',
+  'Government & Military':   'landmark-flag',
+  'Higher Education':        'graduation-cap',
+  'MSSPs':                   'shield-halved',
+};
 
 const pos  = Object.fromEntries(nodes.map((n) => [n.id, n]));
 const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).join(' ');
@@ -146,7 +164,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
               <a href="#" class="prod">
                 <span class="prod-n">0{i + 1}</span>
                 <div>
-                  <h3>{p.name}</h3>
+                  <h3><span class="prod-ic"><Icon name={productIcons[p.key]} /></span>{p.name}</h3>
                   <p>{p.body}</p>
                 </div>
                 <span class="prod-tag k">{p.tagline}</span>
@@ -179,9 +197,12 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
             <h2>Replicate. Attack. Measure. Prove.</h2>
           </div>
           <ol class="steps">
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <li>
-                <span class="step-n stencil">{s.n}</span>
+                <div class="step-top">
+                  <span class="step-n stencil">{s.n}</span>
+                  <Icon name={stepIcons[i]} size="1.75rem" class="step-ic" />
+                </div>
                 <h3>{s.title}</h3>
                 <p>{s.body}</p>
               </li>
@@ -198,7 +219,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
             <figcaption class="k">— {quote.source}</figcaption>
           </figure>
           <div class="award">
-            <span class="award-badge stencil">2026</span>
+            <span class="award-badge"><Icon name="trophy-star" size="1.6rem" /><span class="stencil">2026</span></span>
             <div>
               <p class="award-t">{award.title}</p>
               <p class="k">{award.body}</p>
@@ -217,7 +238,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
           </div>
           <ul class="ind">
             {industries.map((i) => (
-              <li><a href="#"><h3>{i.name}</h3><p>{i.body}</p></a></li>
+              <li><a href="#"><Icon name={industryIcons[i.name]} size="2.75rem" class="ind-ic" /><h3>{i.name}</h3><p>{i.body}</p></a></li>
             ))}
           </ul>
         </div>
@@ -393,6 +414,9 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; }
   .prod p { color: var(--muted); max-width: 36rem; }
   .prod-go { font-size: 1.6rem; justify-self: end; }
+  .prod h3 { display: flex; align-items: center; gap: 0.9rem; }
+  .prod-ic { display: inline-grid; place-items: center; width: 2.6rem; height: 2.6rem; flex-shrink: 0; font-size: 1.25rem; color: var(--cy); border: 1.5px solid currentColor; }
+  .prod:hover .prod-ic { color: #0a0a0a; }
 
   .ai { background: var(--cy); color: #0a0a0a; padding: 7rem 0; background-image: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(10, 10, 10, 0.018) 22px 44px); }
   .ai-in { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: end; }
@@ -406,6 +430,8 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .steps li + li { border-left: 1px solid var(--line); }
   .step-n { font-size: 4.5rem; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--cy); }
   .steps h3 { font-size: 2rem; }
+  .step-top { display: flex; justify-content: space-between; align-items: start; }
+  .steps :global(.step-ic) { color: var(--hi); }
   .steps p { color: var(--muted); }
 
   /* Bone section: swaps tokens so text, lines and muted copy flip to ink. */
@@ -418,15 +444,18 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .q blockquote { font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; text-transform: uppercase; }
   .q figcaption { margin-top: 1.5rem; color: var(--hi); }
   .award { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; border: 1px solid var(--hi); }
-  .award-badge { background: var(--hi); color: #0a0a0a; font-size: 1.6rem; padding: 0.8rem 0.9rem; flex-shrink: 0; }
+  .award-badge { display: grid; justify-items: center; gap: 0.35rem; background: var(--hi); color: #0a0a0a; font-size: 1.6rem; padding: 0.9rem 1rem 0.7rem; flex-shrink: 0; }
   .award-t { font-size: 1.35rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.5rem; }
   .logos { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2.5rem; padding-top: 3rem; border-top: 1px solid var(--line); }
   .logos li { font-weight: 800; font-size: 1.2rem; color: #77736b; text-transform: uppercase; letter-spacing: -0.02em; }
 
   .ind { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .ind a { display: grid; gap: 1rem; align-content: space-between; min-height: 260px; padding: 1.75rem; background: var(--bg); color: var(--ink); transition: background 0.2s; }
+  .ind li { display: flex; }
+  .ind a { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; min-height: 260px; padding: 1.75rem; background: var(--bg); color: var(--ink); transition: background 0.2s; }
   .ind a:hover { background: var(--bg-2); }
   .ind a:hover h3 { color: var(--hi); }
+  .ind :global(.ind-ic) { color: var(--hi); margin-bottom: 2.5rem; transition: transform 0.2s, color 0.2s; }
+  .ind a:hover :global(.ind-ic) { color: var(--cy); transform: translateY(-3px); }
   .ind p { color: var(--muted); font-size: 0.92rem; }
 
   .posts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
