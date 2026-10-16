@@ -1,6 +1,5 @@
 ---
-// Review hub: one card per concept, plus the competitive read from the Ridge
-// CMS exploration so reviewers can see why each direction exists.
+// Review hub: the three homepage concepts, nothing else.
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
 
@@ -9,74 +8,33 @@ const concepts = [
     href:   '/concept-a',
     tag:    'A',
     name:   'Command',
-    tone:   'Dark · product-led · photography + product UI',
-    peers:  'SentinelOne, Cyberbit, Immersive Labs',
-    body:   'The hero is the product: a live Performance Portal view (human vs. AI scores, MTTD trend, ATT&CK timeline) layered over duotone photography, plus a live-fire exercise band, mini product visuals, and an agent decision trace. Green means humans and defense, purple means AI and the brand.',
-    swatch: ['#09070e', '#9300fe', '#8fcc0a', '#ff8500'],
+    body:   'Dark and product-led, with photography.',
+    swatch: ['#09070e', '#9300fe', '#84bd00', '#ff8500'],
   },
   {
     href:   '/concept-b',
     tag:    'B',
     name:   'The Exercise',
-    tone:   'Light · DM Serif + Poppins · narrative',
-    peers:  'Halcyon, Cloudflare, SimSpace',
-    body:   'A different structure, not a light version of A. The homepage walks through a single live-fire exercise minute by minute (08:30 replicate, 09:02 the phish lands, 09:11 who noticed first, 09:47 measure), so the page itself shows what makes Cloud Range different.',
+    body:   'Light and editorial. One exercise, minute by minute.',
     swatch: ['#f7f7fb', '#7a45d6', '#8fe31a', '#ff8500'],
   },
   {
     href:   '/concept-c',
     tag:    'C',
     name:   'Live-Fire',
-    tone:   'Loud · stencil type · yellow + cyan on ink',
-    peers:  'Huntress, Abnormal AI, Hack The Box',
-    body:   'The brand at full volume. The stencil wordmark becomes the headline typeface, set over an animated attack path through a replica network, with an ATT&CK ticker and full-bleed hazard-yellow bands, in a palette no competitor owns. It has the energy of the Webflow sites without their JavaScript weight.',
+    body:   'Bold stencil type in yellow and cyan.',
     swatch: ['#09090b', '#ffd60a', '#0af3ff', '#ff4d3d'],
   },
 ];
-
-// Every site in the CMS exploration, reviewed Oct 2026.
-const field = [
-  { site: 'SimSpace',       cms: 'WordPress',              perf: 99, direct: true,  look: 'Light, calm teal; animated hero',             says: '“AI Proving Grounds”: validate, operationalize, build' },
-  { site: 'Cloudflare',     cms: 'Astro + Headless',       perf: 97, direct: false, look: 'Full-bleed orange gradient, centered type',   says: 'Platform scale, “yours by default”' },
-  { site: 'Palo Alto',      cms: 'AEM',                    perf: 95, direct: false, look: 'Dark, photo + orange CTA, carousel',          says: 'Product launch of the month' },
-  { site: 'Cyberbit',       cms: 'WordPress',              perf: 94, direct: true,  look: 'Navy + purple, problem/solution, attack-flow UI', says: '“Build attack-ready defensive teams”' },
-  { site: 'Hack The Box',   cms: 'HubSpot',                perf: 93, direct: true,  look: 'Black + lime, gamer-technical',              says: '“Validate your readiness”, world’s first AI Range' },
-  { site: 'SentinelOne',    cms: 'Contentstack + Next.js', perf: 69, direct: false, look: 'Electric purple + lime CTA, product UI hero', says: '“The world runs on AI. We secure it.”' },
-  { site: 'Spur',           cms: 'Sanity + Next.js',       perf: 69, direct: false, look: 'Rendered blank without JavaScript',           says: 'n/a (client-rendered)' },
-  { site: 'Abnormal AI',    cms: 'Contentstack + Next.js', perf: 58, direct: false, look: 'Black + chartreuse, big confident type',      says: '“We stop attacks others can’t”' },
-  { site: 'Immersive Labs', cms: 'Webflow',                perf: 55, direct: true,  look: 'Dark + blue, product UI hero',                says: 'Prove “people, AI agents, and leadership” are ready' },
-  { site: 'Huntress',       cms: 'Builder.io',             perf: 50, direct: false, look: 'Black + hot pink/cyan, all-caps attitude',    says: '“Hackers wrecked.”' },
-  { site: 'Halcyon',        cms: 'Webflow',                perf: 38, direct: false, look: 'Warm cream, serif, orange gradient',          says: 'Ransomware outcome promise' },
-  { site: 'CrowdStrike',    cms: 'AEM',                    perf: 29, direct: false, look: 'Red, event photography, heavy chrome',        says: 'Event promo' },
-];
-
-const takeaways = [
-  {
-    h: 'Everyone now sells “AI readiness.”',
-    p: 'Immersive, Hack The Box, SimSpace, and Cyberbit all lead with proving people and AI agents. Cloud Range can’t win on that headline alone. It wins on the specifics only it can claim: live-fire attacks, a replica of your own network, licensed versions of your actual tools, OT/ICS, and measured results.',
-  },
-  {
-    h: 'Lime on black is already taken.',
-    p: 'Hack The Box and Abnormal own it. Purple is crowded too (SentinelOne, Cyberbit), but Cloud Range’s purple + green + orange combination is distinctive. All three concepts lead with purple and give green and orange specific jobs.',
-  },
-  {
-    h: 'The best-looking sites are the slowest.',
-    p: 'Halcyon, Immersive, and Huntress get their polish from client-side JavaScript and score 38–55. These concepts send zero JavaScript and use CSS-only motion, so Cloud Range can look like the right half of this table and score like the top of it.',
-  },
-];
 ---
-<Base title="Cloud Range — Redesign Concepts" showBar={false}>
+<Base title="Cloud Range — Homepage Concepts" showBar={false}>
   <div class="hub">
     <header class="wrap top">
-      <Logo tone="light" />
-      <p class="mono">Ridge Marketing · Redesign exploration · Oct 2026</p>
+      <Logo />
     </header>
 
     <main class="wrap">
-      <section class="intro">
-        <h1>Three homepage directions for Cloud Range.</h1>
-        <p>All three share one content model (the one that moves into Sanity or WordPress) and use Cloud Range’s real palette: purple <i class="dot" style="background:#9300fe"></i>, green <i class="dot" style="background:#84bd00"></i>, orange <i class="dot" style="background:#ff8500"></i>. Each is built in Astro with no client JavaScript.</p>
-      </section>
+      <h1>Homepage concepts</h1>
 
       <ul class="cards">
         {concepts.map((c) => (
@@ -87,139 +45,44 @@ const takeaways = [
                 <div class="sw">{c.swatch.map((s) => <i style={`background:${s}`}></i>)}</div>
               </div>
               <h2>{c.name}</h2>
-              <p class="mono tone">{c.tone}</p>
-              <p class="body">{c.body}</p>
-              <p class="mono peers">Closest in feel: {c.peers}</p>
+              <p>{c.body}</p>
               <span class="go">View concept →</span>
             </a>
           </li>
         ))}
       </ul>
-
-      <section class="lh">
-        <h2>Lighthouse, these builds</h2>
-        <p class="mono">Local production build · desktop / mobile</p>
-        <ul>
-          <li><b>A</b><span>Perf 100 / 98</span><span>A11y 100</span><span>Best practices 100</span><span>SEO 100</span><span>(before photos were added)</span></li>
-          <li><b>B</b><span>Perf 100 / 99</span><span>A11y 100</span><span>Best practices 100</span><span>SEO 100</span><span>(before font change)</span></li>
-          <li><b>C</b><span>Perf 100 / 99</span><span>A11y 100</span><span>Best practices 100</span><span>SEO 100</span></li>
-        </ul>
-      </section>
-
-      <section class="take">
-        {takeaways.map((t, i) => (
-          <article>
-            <p class="mono n">0{i + 1}</p>
-            <h3>{t.h}</h3>
-            <p>{t.p}</p>
-          </article>
-        ))}
-      </section>
-
-      <section class="field">
-        <div class="field-head">
-          <h2>The competitive field</h2>
-          <p>All 12 sites from the CMS exploration. The score is desktop Lighthouse performance. <span class="pill">Direct</span> marks cyber-range and readiness competitors.</p>
-        </div>
-        <div class="table" role="table">
-          <div class="tr th" role="row">
-            <span role="columnheader">Site</span><span role="columnheader">Performance</span><span role="columnheader">Look</span><span role="columnheader">Lead message</span>
-          </div>
-          {field.map((f) => (
-            <div class="tr" role="row">
-              <span role="cell" class="nm">{f.site}{f.direct && <span class="pill">Direct</span>}<small>{f.cms}</small></span>
-              <span role="cell" class="perf">
-                <span class="bar"><span style={`width:${f.perf}%`} class:list={[f.perf >= 90 ? 'g' : f.perf >= 50 ? 'm' : 'p']}></span></span>
-                <b class="mono">{f.perf}</b>
-              </span>
-              <span role="cell" class="look">{f.look}</span>
-              <span role="cell" class="says">{f.says}</span>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   </div>
 </Base>
 
 <style>
   .hub {
-    --bg:     #0b0910;
-    --panel:  #14111b;
-    --line:   rgba(255, 255, 255, 0.1);
-    --text:   #f1eef5;
-    --muted:  #9d96a8;
+    --text:   #120f1a;
+    --muted:  #5e5869;
+    --line:   #e6e3ec;
     --purple: #9300fe;
-    --purp-t: #c08bff;
-    --green:  #84bd00;
-    background: var(--bg);
+    background: #fff;
     color: var(--text);
     font-family: 'Inter Variable', system-ui, sans-serif;
     min-height: 100vh;
     padding-bottom: 5rem;
     line-height: 1.6;
   }
-  .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
-  .mono { font-family: 'JetBrains Mono Variable', monospace; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+  .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
   a { text-decoration: none; color: inherit; }
-  h1, h2, h3 { font-family: 'Space Grotesk Variable', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
-  .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 1.75rem 0; border-bottom: 1px solid var(--line); }
-  .intro { padding: 5rem 0 3.5rem; max-width: 52rem; }
-  h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; }
-  .intro p { color: var(--muted); font-size: 1.12rem; margin-top: 1.5rem; }
-  .dot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; vertical-align: 0; }
-
+  .top { padding: 2rem 0; }
+  h1 { font-family: 'Space Grotesk Variable', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 3rem 0 2.5rem; }
   .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .card { display: flex; flex-direction: column; gap: 0.75rem; height: 100%; padding: 1.75rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; transition: border-color 0.2s, transform 0.2s; }
-  .card:hover { border-color: var(--purple); transform: translateY(-3px); }
-  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .card { display: flex; flex-direction: column; gap: 0.5rem; height: 100%; padding: 1.75rem; border: 1px solid var(--line); border-radius: 16px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+  .card:hover { border-color: var(--purple); transform: translateY(-3px); box-shadow: 0 20px 40px -24px rgba(60, 20, 120, 0.3); }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
   .tag { width: 44px; height: 44px; display: grid; place-items: center; background: var(--purple); color: #fff; font-family: 'Saira Stencil One', sans-serif; font-size: 1.4rem; border-radius: 10px; }
   .sw { display: flex; }
-  .sw i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--panel); margin-left: -6px; box-shadow: 0 0 0 1px var(--line); }
-  .card h2 { font-size: 2rem; }
-  .tone { color: var(--purp-t); }
-  .body { color: #cdc7d6; font-size: 0.95rem; flex: 1; }
-  .peers { padding-top: 1rem; border-top: 1px solid var(--line); }
-  .go { font-weight: 600; color: var(--purp-t); }
-
-  .lh { margin-top: 1.25rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 16px; display: grid; grid-template-columns: auto auto 1fr; gap: 0.5rem 1.5rem; align-items: center; }
-  .lh h2 { font-size: 1.05rem; }
-  .lh ul { display: grid; gap: 0.35rem; justify-self: end; }
-  .lh li { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; font-size: 0.85rem; color: var(--muted); }
-  .lh b { color: var(--text); width: 1rem; }
-
-  .take { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
-  .take .n { color: var(--green); }
-  .take h3 { font-size: 1.4rem; margin: 0.5rem 0 0.75rem; }
-  .take p:last-child { color: var(--muted); font-size: 0.95rem; }
-
-  .field { margin-top: 5rem; }
-  .field-head { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; align-items: end; margin-bottom: 1.5rem; }
-  .field-head h2 { font-size: 2rem; }
-  .field-head p { color: var(--muted); }
-  .pill { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.1rem 0.45rem; border-radius: 4px; background: rgba(147, 0, 254, 0.25); color: var(--purp-t); margin-left: 0.5rem; vertical-align: 2px; }
-  .table { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-  .tr { display: grid; grid-template-columns: 14rem 11rem 1fr 1fr; gap: 1.25rem; padding: 0.9rem 1.25rem; border-top: 1px solid var(--line); font-size: 0.9rem; align-items: center; }
-  .tr:first-child { border-top: 0; }
-  .th { background: var(--panel); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
-  .nm { font-weight: 600; }
-  .nm small { display: block; color: var(--muted); font-size: 0.75rem; font-weight: 400; }
-  .perf { display: grid; grid-template-columns: 1fr 2rem; gap: 0.75rem; align-items: center; }
-  .perf b { text-align: right; color: var(--text); }
-  .bar { height: 8px; background: #221d2b; border-radius: 4px; overflow: hidden; }
-  .bar span { display: block; height: 100%; border-radius: 4px; }
-  .bar .g { background: var(--green); }
-  .bar .m { background: #ff8500; }
-  .bar .p { background: #ff5d5d; }
-  .look { color: #cdc7d6; }
-  .says { color: var(--muted); }
-
-  @media (max-width: 960px) {
-    .cards, .take, .field-head { grid-template-columns: 1fr; }
-    .lh { grid-template-columns: 1fr; }
-    .lh ul { justify-self: start; }
-    .tr { grid-template-columns: 1fr 9rem; }
-    .th span:nth-child(n + 3) { display: none; }
-    .look, .says { grid-column: 1 / -1; }
+  .sw i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; margin-left: -6px; box-shadow: 0 0 0 1px var(--line); }
+  h2 { font-family: 'Space Grotesk Variable', sans-serif; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+  .card p { color: var(--muted); flex: 1; }
+  .go { font-weight: 600; color: var(--purple); margin-top: 1rem; }
+  @media (max-width: 860px) {
+    .cards { grid-template-columns: 1fr; }
   }
 </style>
