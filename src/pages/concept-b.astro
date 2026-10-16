@@ -93,7 +93,7 @@ const env = ['SIEM', 'EDR', 'Firewall', 'Active Directory', 'Email', 'Cloud tena
       <section class="hero">
         <div class="wrap hero-in">
           <a href="#proof" class="award-chip"><span>★</span> {award.title}, 2026</a>
-          <h1>The attack is coming.<br /><em>Rehearse it first.</em></h1>
+          <h1><span class="h1-sans">The attack is coming.</span><br /><em>Rehearse it first.</em></h1>
           <p class="lede">Cloud Range validates the cyber readiness of human teams and AI agents with live-fire attacks in a replica of your own environment, then measures exactly how they performed.</p>
           <div class="ctas">
             <a href="#demo" class="btn btn-purple btn-lg">Request a demo</a>
@@ -356,6 +356,7 @@ const env = ['SIEM', 'EDR', 'Firewall', 'Active Directory', 'Email', 'Cloud tena
   .award-chip span { color: var(--orange); }
   h1 { font-size: clamp(3.1rem, 8vw, 6.6rem); line-height: 0.98; letter-spacing: -0.025em; }
   h1 em { font-style: italic; color: var(--purple); }
+  .h1-sans { font-family: var(--display); font-weight: 600; font-size: 0.86em; letter-spacing: -0.05em; }
   .lede { font-size: 1.2rem; color: var(--ink-2); max-width: 40rem; margin: 2rem 0 2.5rem; }
   .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
 
