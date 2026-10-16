@@ -43,6 +43,14 @@ const productIcons: Record<string, IconName> = {
   'labs':      'flask',
   'tabletop':  'chess-knight',
 };
+// Sentence-case titles for the product rows. Brand and trademarked names keep their caps.
+const productTitles: Record<string, string> = {
+  'platform':  'Cloud Range platform',
+  'live-fire': 'Live-fire simulations',
+  'ai':        'AI Validation Range™',
+  'labs':      'Hands-on labs',
+  'tabletop':  'Tabletop 2.0',
+};
 const stepIcons: IconName[] = ['clone', 'bullseye-arrow', 'gauge-high', 'file-certificate'];
 const industryIcons: Record<string, IconName> = {
   'Commercial Enterprise':   'building',
@@ -165,7 +173,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
                 <span class="prod-n">0{i + 1}</span>
                 <span class="prod-ic"><Icon name={productIcons[p.key]} /></span>
                 <div>
-                  <h3>{p.name}</h3>
+                  <h3>{productTitles[p.key] ?? p.name}</h3>
                   <p>{p.body}</p>
                 </div>
                 <span class="prod-tag k">{p.tagline}</span>
@@ -412,7 +420,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .prod:hover p, .prod:hover .k { color: rgba(10, 10, 10, 0.8); }
   .prod-n { font-family: 'Saira Stencil One', sans-serif; font-size: 2.4rem; color: var(--hi); }
   .prod:hover .prod-n { color: #0a0a0a; }
-  .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; }
+  .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; text-transform: none; letter-spacing: -0.035em; }
   .prod p { color: var(--muted); max-width: 36rem; }
   .prod-go { font-size: 1.6rem; justify-self: end; }
   .prod-ic { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; font-size: 2.4rem; color: var(--cy); }
