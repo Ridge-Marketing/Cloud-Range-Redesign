@@ -49,6 +49,20 @@ const industryIcons: Record<string, IconName> = {
 const assumed   = ['Training completed', 'Tools deployed', 'AI tested in isolation', 'Annual tabletop'];
 const validated = ['Performance under live attack', 'Detection proven in your stack', 'Agents scored on real decisions', 'Continuous, measured improvement'];
 
+// Real customer logos (sliced from the live site's logo strips), shown in
+// grayscale. Heights are tuned per logo so they read at the same visual weight.
+const customerLogos = [
+  { file: 'ibm',                  name: 'IBM',                  h: 28 },
+  { file: 'aws',                  name: 'AWS',                  h: 34 },
+  { file: 'hca-healthcare',       name: 'HCA Healthcare',       h: 34 },
+  { file: 'anthropic',            name: 'Anthropic',            h: 16 },
+  { file: 'bain',                 name: 'Bain & Company',       h: 32 },
+  { file: 'ey',                   name: 'EY',                   h: 38 },
+  { file: 'travelers',            name: 'Travelers',            h: 28 },
+  { file: 'bluecross-blueshield', name: 'BlueCross BlueShield', h: 32 },
+  { file: 'caci',                 name: 'CACI',                 h: 28 },
+];
+
 const trace = [
   { who: 'agent', step: 'Alert ingested',         detail: 'EDR · lsass.exe accessed by rundll32',  state: 'ok'   },
   { who: 'agent', step: 'Enriched & correlated',  detail: '3 related events on FIN-WS-114',        state: 'ok'   },
@@ -196,7 +210,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
         <div class="wrap">
           <p class="mono center muted">The world's most advanced SOCs depend on Cloud Range</p>
           <ul class="logo-row">
-            {customers.map((c) => <li>{c}</li>)}
+            {customerLogos.map((l) => <li><img src={`/logos/${l.file}.png`} alt={l.name} style={`height:${l.h}px`} loading="lazy" decoding="async" /></li>)}
           </ul>
         </div>
       </section>
@@ -509,8 +523,8 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   /* Buttons */
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; padding: 0.7rem 1.1rem; border-radius: 8px; transition: background 0.2s, border-color 0.2s, transform 0.2s; white-space: nowrap; }
   .btn-lg { padding: 0.95rem 1.4rem; font-size: 1rem; }
-  .btn-brand { background: var(--lime); color: var(--green-ink); box-shadow: 0 8px 24px -8px rgba(132, 189, 0, 0.6); }
-  .btn-brand:hover { background: var(--lime-2); }
+  .btn-brand { background: var(--green); color: var(--green-ink); box-shadow: 0 8px 24px -8px rgba(132, 189, 0, 0.6); }
+  .btn-brand:hover { background: var(--lime); }
   .btn-ghost { border: 1px solid var(--line-2); color: var(--text); }
   .btn-ghost:hover { border-color: var(--lime); }
   .link-quiet { color: var(--muted); font-size: 0.9rem; }
@@ -535,15 +549,14 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   /* Hero */
   .hero { position: relative; overflow: hidden; padding: 5.5rem 0 6rem; border-bottom: 1px solid var(--line); }
   .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%); }
-  .hero::after { content: ''; position: absolute; width: 720px; height: 720px; right: -120px; top: -200px; background: radial-gradient(closest-side, rgba(132, 189, 0, 0.26), transparent); pointer-events: none; }
+  .hero::after { content: ''; position: absolute; width: 720px; height: 720px; right: -120px; top: -200px; background: radial-gradient(closest-side, rgba(132, 189, 0, 0.42), transparent); pointer-events: none; }
   .hero-in { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.15fr; gap: 3.5rem; align-items: center; }
   .pill { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; padding: 0.4rem 0.85rem; border: 1px solid var(--line-2); border-radius: 999px; color: var(--muted); margin-bottom: 1.75rem; }
   .pill:hover { color: var(--text); border-color: var(--lime); }
   .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 10px var(--lime); }
   h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); }
   h1 em { font-style: normal; }
-  h1 em.h { color: var(--lime); }
-  h1 em.ai { color: var(--purple-t); }
+  h1 em.h, h1 em.ai { color: var(--green); }
   .lede { font-size: 1.12rem; color: var(--muted); margin: 1.5rem 0 2.25rem; max-width: 34rem; }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .hero-proof { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 2.5rem; color: var(--muted); }
@@ -583,10 +596,12 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .st.contained { color: var(--amber); background: rgba(255, 133, 0, 0.14); }
 
   /* Logos */
-  .logos { padding: 3rem 0; background: var(--green); background-image: radial-gradient(50% 120% at 100% 0%, rgba(255, 214, 0, 0.35), transparent 60%); }
-  .logos .muted { color: rgba(11, 20, 2, 0.72); }
-  .logo-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; margin-top: 1.5rem; }
-  .logo-row li { font-family: 'Space Grotesk Variable', sans-serif; font-weight: 600; font-size: 1.15rem; color: var(--green-ink); letter-spacing: -0.01em; }
+  .logos { padding: 3rem 0; background: #fff; border-bottom: 1px solid #e0e6dc; }
+  .logos .muted { color: #56625a; }
+  .logo-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.75rem 2.25rem; margin-top: 1.75rem; }
+  .logo-row li { display: flex; align-items: center; }
+  .logo-row img { width: auto; max-width: 180px; filter: grayscale(1) contrast(1.1); opacity: 0.62; transition: filter 0.2s, opacity 0.2s; }
+  .logo-row li:hover img { filter: none; opacity: 1; }
 
   /* Sections */
   .sec { padding: 7rem 0; border-bottom: 1px solid var(--line); }
@@ -665,7 +680,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .steps li::before { content: ''; position: absolute; top: 0; left: 1.75rem; width: 32px; height: 3px; background: var(--lime); }
   .steps h3 { font-size: 1.6rem; }
 
-  .stats { padding: 5rem 0; background: var(--green); color: var(--green-ink); background-image: radial-gradient(50% 120% at 100% 0%, rgba(255, 214, 0, 0.35), transparent 60%); }
+  .stats { padding: 5rem 0; background: var(--green); color: var(--green-ink); }
   .stats-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
   .stat { font-family: 'Space Grotesk Variable', sans-serif; font-weight: 600; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.04em; }
   .stat span { font-size: 0.5em; vertical-align: top; margin-left: 2px; }
@@ -808,6 +823,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
     .card-0 { grid-column: 1 / -1; }
     .steps, .stats-in, .posts { grid-template-columns: 1fr 1fr; }
     .ind { grid-template-columns: repeat(3, 1fr); }
+    .logo-row { justify-content: center; }
     .ftr-in { grid-template-columns: 1fr 1fr; }
     .ftr-brand { grid-column: 1 / -1; }
   }
