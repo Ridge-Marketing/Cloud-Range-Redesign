@@ -56,13 +56,13 @@ For comparison, competitor desktop performance ranges from 99 (SimSpace) to 29 (
 
 ## Icons
 
-Font Awesome Pro 6.7.2, Sharp Solid, inlined as SVG paths in `src/data/icons.ts` and rendered by `src/components/Icon.astro`. The site builds without a token and ships no Font Awesome JavaScript.
+Font Awesome Pro 6.7.2, Sharp Regular (outline), inlined as SVG paths in `src/data/icons.ts` and rendered by `src/components/Icon.astro`. The site builds without a token and ships no Font Awesome JavaScript.
 
 To add icons, put an FA API token with the **Pro icons and metadata** scope in `.env.local` (gitignored) as `FONTAWESOME_TOKEN=…`, then run:
 
 ```sh
 set -a; . ./.env.local; set +a
-node scripts/fetch-icons.mjs src/data/icons.ts server crosshairs <more names…>
+FA_STYLE=REGULAR node scripts/fetch-icons.mjs src/data/icons.ts server crosshairs <more names…>
 ```
 
 The script rewrites the whole file, so pass every icon name you want to keep.
