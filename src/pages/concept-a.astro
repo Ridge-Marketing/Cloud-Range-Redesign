@@ -395,7 +395,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
             {industries.map((i) => (
               <li>
                 <a href="#">
-                  <div class="ind-img duo">
+                  <div class="ind-img duo duo-purple duo-soft">
                     <Image src={industryPhotos[i.name].src} alt={industryPhotos[i.name].alt} widths={[400, 700]} sizes="(max-width: 640px) 100vw, (max-width: 1080px) 33vw, 240px" />
                   </div>
                   <div class="ind-body">
@@ -734,9 +734,9 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .duo.duo-purple { background: #2a0b4d; }
   .duo.duo-purple img { filter: grayscale(1) sepia(1) hue-rotate(228deg) saturate(2.2) contrast(1.1) brightness(0.8); }
   .duo.duo-purple::after { background: linear-gradient(160deg, rgba(147, 0, 254, 0.35), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.55), transparent 55%); }
-  /* Hero photo: lighter tint so the photo reads through. */
-  .hero-photo.duo.duo-purple img { filter: grayscale(1) sepia(0.6) hue-rotate(228deg) saturate(1.3) contrast(1.05) brightness(0.92); }
-  .hero-photo.duo.duo-purple::after { background: linear-gradient(160deg, rgba(147, 0, 254, 0.14), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.35), transparent 55%); }
+  /* Hero and industry photos: lighter tint so the photo reads through. */
+  .hero-photo.duo.duo-purple img, .duo.duo-purple.duo-soft img { filter: grayscale(1) sepia(0.6) hue-rotate(228deg) saturate(1.3) contrast(1.05) brightness(0.92); }
+  .hero-photo.duo.duo-purple::after, .duo.duo-purple.duo-soft::after { background: linear-gradient(160deg, rgba(147, 0, 254, 0.14), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.35), transparent 55%); }
   .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(132, 189, 0, 0.25), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.55), transparent 55%); pointer-events: none; }
 
   .hero-in > * { min-width: 0; }
