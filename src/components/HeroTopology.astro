@@ -1,0 +1,195 @@
+---
+// Concept A hero: the HN-Blue range topology (from the client's "Hero Graphic"
+// SVG) rebuilt in the console UI style. Same hosts, segments and firewalls,
+// laid out landscape so it fits the hero column. All motion is CSS-only.
+import { icons, type IconName } from '../data/icons';
+
+type State = 'adversary' | 'compromised' | 'contained' | 'sensor' | undefined;
+
+interface HostNode {
+  name:   string;
+  ip:     string;
+  x:      number;
+  y:      number;
+  icon:   IconName;
+  state?: State;
+}
+
+const chain: HostNode[] = [
+  { name: 'Internet',         ip: '',                icon: 'globe',            x: 40,  y: 26, state: 'adversary' },
+  { name: 'HN-Blue-Router',   ip: '1.30.2.2.1',      icon: 'router',           x: 150, y: 26 },
+  { name: 'DMZ Firewall',     ip: '130.2.2.2',       icon: 'block-brick-fire', x: 280, y: 26 },
+  { name: 'Central Firewall', ip: '192.168.254.241', icon: 'block-brick-fire', x: 420, y: 26 },
+  { name: 'OT Firewall',      ip: '192.168.30.254',  icon: 'block-brick-fire', x: 560, y: 26, state: 'sensor' },
+];
+
+// Three-column grids inside each segment box.
+const dmzCols = [64, 160, 256];
+const otCols  = [384, 480, 576];
+const dmzRows = [172, 262, 352, 442];
+const otRows  = [168, 240, 312, 384, 456];
+
+const dmz: HostNode[] = [
+  { name: 'Dailycaller.com', ip: '172.16.100.22', icon: 'server',  x: dmzCols[0], y: dmzRows[0] },
+  { name: 'DMZ-DNS',         ip: '172.16.100.22', icon: 'server',  x: dmzCols[1], y: dmzRows[0] },
+  { name: 'DMZ-File02',      ip: '172.16.100.22', icon: 'server',  x: dmzCols[2], y: dmzRows[0] },
+  { name: 'Mail-Relay',      ip: '172.16.100.8',  icon: 'server',  x: dmzCols[0], y: dmzRows[1] },
+  { name: 'TheBlaze.com',    ip: '172.16.100.21', icon: 'server',  x: dmzCols[1], y: dmzRows[1] },
+  { name: 'TheGuardian.com', ip: '172.16.100.23', icon: 'server',  x: dmzCols[2], y: dmzRows[1] },
+  { name: 'Web02',           ip: '172.16.100.25', icon: 'server',  x: dmzCols[0], y: dmzRows[2], state: 'compromised' },
+  { name: 'Web03',           ip: '172.16.100.25', icon: 'server',  x: dmzCols[1], y: dmzRows[2] },
+  { name: 'WebServer-IIS',   ip: '172.16.100.4',  icon: 'server',  x: dmzCols[2], y: dmzRows[2] },
+  { name: 'HN-KIOSK',        ip: '172.16.100.28', icon: 'desktop', x: dmzCols[1], y: dmzRows[3] },
+];
+
+const ot: HostNode[] = [
+  { name: 'Clancy CTD',        ip: '192.168.30.240',   icon: 'desktop', x: otCols[0], y: otRows[0], state: 'sensor' },
+  { name: 'Naomi',             ip: '192.168.30.200',   icon: 'desktop', x: otCols[1], y: otRows[0] },
+  { name: 'OT-DC01',           ip: '192.168.30.53',    icon: 'desktop', x: otCols[2], y: otRows[0] },
+  { name: 'OT-ENG-WKS-01',     ip: '192.168.30.20',    icon: 'desktop', x: otCols[0], y: otRows[1] },
+  { name: 'OT-ENG-WKS-02',     ip: '192.168.30.21',    icon: 'desktop', x: otCols[1], y: otRows[1] },
+  { name: 'Linux_Workstation', ip: '192.168.30.22',    icon: 'desktop', x: otCols[2], y: otRows[1] },
+  { name: 'OT-Fire01',         ip: '192.168.30.54',    icon: 'desktop', x: otCols[0], y: otRows[2] },
+  { name: 'ChemicalPlant',     ip: '192.168.30.9',     icon: 'desktop', x: otCols[1], y: otRows[2], state: 'contained' },
+  { name: 'Pic1-B',            ip: '192.168.30.11-15', icon: 'desktop', x: otCols[2], y: otRows[2] },
+  { name: 'Scada-Bridge',      ip: '192.168.30.8',     icon: 'desktop', x: 432,       y: otRows[3] },
+  { name: 'Plcagg',            ip: '192.168.30.7',     icon: 'desktop', x: 528,       y: otRows[3] },
+];
+
+// Dotted infrastructure links, then the two legs of the live attack path.
+const links = [
+  'M58 43 H128', 'M172 43 H254', 'M306 43 H394', 'M446 43 H534',
+  'M280 96 V118', 'M560 96 V118',
+];
+const attack = [
+  'M58 43 H128 M172 43 H254 M280 96 V166 H112 V367 H86',
+  'M306 43 H394 M446 43 H534 M560 96 V166 H528 V327 H504',
+];
+
+const tile = { w: 36, h: 30 };
+const big  = { w: 46, h: 36 };
+
+const iconBox = (name: IconName, cx: number, cy: number, size: number) => {
+  const i = icons[name];
+  const w = size * (i.w / i.h);
+  return { x: cx - w / 2, y: cy - size / 2, w, h: size, vb: `0 0 ${i.w} ${i.h}`, d: Array.isArray(i.d) ? i.d : [i.d] };
+};
+---
+<div class="topo" role="img" aria-label="Live-fire exercise on the HN-Blue range: an attacker from the internet compromises Web02 in the DMZ segment and pivots toward ChemicalPlant in the OT segment, where the blue team contains it.">
+  <div class="topo-bar">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <span class="mono">range / hn-blue-01 · topology</span>
+    <span class="live mono"><b></b>LIVE</span>
+  </div>
+
+  <svg viewBox="0 0 640 556" class="topo-svg">
+    <!-- Segments -->
+    <rect x="16"  y="118" width="288" height="426" rx="12" class="seg" />
+    <rect x="336" y="118" width="288" height="426" rx="12" class="seg" />
+    <text x="32"  y="142" class="seg-t">DMZ segment</text>
+    <text x="32"  y="156" class="seg-ip">172.16.100.0/24</text>
+    <text x="352" y="142" class="seg-t">OT segment</text>
+    <text x="352" y="156" class="seg-ip">192.168.30.0/24</text>
+
+    {links.map((d) => <path d={d} class="link" />)}
+    {attack.map((d, i) => <path d={d} class:list={['atk', `atk-${i}`]} />)}
+
+    <!-- Perimeter chain -->
+    {chain.map((n) => {
+      const b = iconBox(n.icon, n.x, n.y + big.h / 2, 18);
+      return (
+        <g class:list={['node', n.state]}>
+          <rect x={n.x - big.w / 2} y={n.y} width={big.w} height={big.h} rx="7" class="frame" />
+          <svg x={b.x} y={b.y} width={b.w} height={b.h} viewBox={b.vb} class="ic">{b.d.map((d) => <path d={d} />)}</svg>
+          <text x={n.x} y={n.y + big.h + 14} class="t-name">{n.name}</text>
+          {n.ip && <text x={n.x} y={n.y + big.h + 25} class="t-ip">{n.ip}</text>}
+        </g>
+      );
+    })}
+
+    <!-- Hosts -->
+    {[...dmz, ...ot].map((n) => {
+      const b = iconBox(n.icon, n.x, n.y + tile.h / 2, 14);
+      return (
+        <g class:list={['node', n.state]}>
+          {n.state === 'compromised' && <circle cx={n.x} cy={n.y + tile.h / 2} r="22" class="pulse" />}
+          <rect x={n.x - tile.w / 2} y={n.y} width={tile.w} height={tile.h} rx="6" class="frame" />
+          <svg x={b.x} y={b.y} width={b.w} height={b.h} viewBox={b.vb} class="ic">{b.d.map((d) => <path d={d} />)}</svg>
+          <text x={n.x} y={n.y + tile.h + 13} class="t-name">{n.name}</text>
+          <text x={n.x} y={n.y + tile.h + 24} class="t-ip">{n.ip}</text>
+        </g>
+      );
+    })}
+  </svg>
+
+  <div class="topo-foot mono">
+    <span><b class="sw adv"></b>Adversary</span>
+    <span><b class="sw cmp"></b>Compromised</span>
+    <span><b class="sw cnt"></b>Contained</span>
+    <span><b class="sw sns"></b>Defender sensor</span>
+    <span class="count">25 hosts · 2 segments</span>
+  </div>
+</div>
+
+<style>
+  .topo {
+    --t-line:  rgba(255, 255, 255, 0.14);
+    --t-text:  #eff3ef;
+    --t-muted: #8c988f;
+    --t-red:   #ff5d5d;
+    --t-amber: #ff8500;
+    --t-green: #9ad62a;
+    background: linear-gradient(180deg, #141a15, #0b0f0c);
+    border: 1px solid var(--t-line);
+    border-radius: 14px;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(132, 189, 0, 0.18), 0 0 80px -20px rgba(132, 189, 0, 0.35);
+    overflow: hidden;
+    color: var(--t-text);
+  }
+  .mono { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; }
+  .topo-bar { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: var(--t-muted); }
+  .topo-bar .mono { font-size: 0.7rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: #252c27; }
+  .live { margin-left: auto; color: var(--t-red); display: flex; align-items: center; gap: 6px; }
+  .live b { width: 7px; height: 7px; border-radius: 50%; background: var(--t-red); animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+
+  .topo-svg { display: block; width: 100%; height: auto; padding: 0.75rem 0.5rem 0.25rem; }
+  .seg { fill: rgba(255, 255, 255, 0.018); stroke: rgba(255, 255, 255, 0.1); }
+  .seg-t { font: 600 9.5px 'JetBrains Mono Variable', monospace; fill: var(--t-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .seg-ip { font: 500 8.5px 'JetBrains Mono Variable', monospace; fill: #c08bff; }
+
+  .link { fill: none; stroke: rgba(255, 255, 255, 0.22); stroke-width: 1.5; stroke-dasharray: 1 4.5; stroke-linecap: round; }
+  .atk { fill: none; stroke: var(--t-red); stroke-width: 2; stroke-dasharray: 6 5; stroke-linejoin: round; animation: march 1s linear infinite; filter: drop-shadow(0 0 5px rgba(255, 93, 93, 0.55)); }
+  .atk-1 { stroke: var(--t-amber); filter: drop-shadow(0 0 5px rgba(255, 133, 0, 0.5)); animation-duration: 1.4s; }
+  @keyframes march { to { stroke-dashoffset: -11; } }
+
+  .frame { fill: #131913; stroke: rgba(255, 255, 255, 0.2); stroke-width: 1.2; }
+  .ic { color: #b9c4bc; fill: currentColor; overflow: visible; }
+  .t-name { font: 500 8.5px 'JetBrains Mono Variable', monospace; fill: var(--t-text); text-anchor: middle; }
+  .t-ip { font: 400 7.5px 'JetBrains Mono Variable', monospace; fill: var(--t-muted); text-anchor: middle; }
+
+  .adversary .frame { fill: var(--t-red); stroke: var(--t-red); }
+  .adversary .ic { color: #1a0505; }
+  .compromised .frame { fill: rgba(255, 93, 93, 0.14); stroke: var(--t-red); }
+  .compromised .ic, .compromised .t-name { color: var(--t-red); fill: var(--t-red); }
+  .contained .frame { fill: rgba(255, 133, 0, 0.14); stroke: var(--t-amber); }
+  .contained .ic, .contained .t-name { color: var(--t-amber); fill: var(--t-amber); }
+  .sensor .frame { fill: rgba(132, 189, 0, 0.12); stroke: var(--t-green); }
+  .sensor .ic, .sensor .t-name { color: var(--t-green); fill: var(--t-green); }
+  .pulse { fill: none; stroke: var(--t-red); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: pulse 1.8s ease-out infinite; }
+  @keyframes pulse { from { opacity: 0.7; transform: scale(0.6); } to { opacity: 0; transform: scale(1.25); } }
+
+  .topo-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; padding: 0.75rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.66rem; color: var(--t-muted); }
+  .count { margin-left: auto; }
+  .sw { display: inline-block; width: 9px; height: 9px; margin-right: 0.4rem; vertical-align: -1px; border-radius: 2px; }
+  .sw.adv { background: var(--t-red); }
+  .sw.cmp { border: 1.5px solid var(--t-red); }
+  .sw.cnt { background: var(--t-amber); }
+  .sw.sns { background: var(--t-green); }
+
+  @media (max-width: 640px) {
+    .count { margin-left: 0; }
+  }
+</style>

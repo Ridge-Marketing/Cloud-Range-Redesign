@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
 import Icon from '../components/Icon.astro';
+import HeroTopology from '../components/HeroTopology.astro';
 import type { IconName } from '../data/icons';
 import {
   hero, nav, products, stats, steps, industries,
@@ -85,19 +86,11 @@ const tactics = [
   { name: 'Impact',            state: 't-next' },
 ];
 
-const timeline = [
-  { t: '09:02:14', id: 'T1566.001', name: 'Spearphishing attachment', state: 'detected' },
-  { t: '09:04:51', id: 'T1059.001', name: 'PowerShell execution',     state: 'detected' },
-  { t: '09:11:07', id: 'T1003.001', name: 'LSASS memory dump',        state: 'missed'   },
-  { t: '09:13:30', id: 'T1021.002', name: 'SMB lateral movement',     state: 'contained' },
-];
-
 const scores = [
   { who: 'Blue Team · Human', kind: 'human', score: 87, delta: '+12' },
   { who: 'SOC Agent · AI',    kind: 'ai',    score: 74, delta: '+5'  },
 ];
 
-const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
 ---
 <Base title="Cloud Range — Concept A · Command">
   <div class="a">
@@ -161,44 +154,17 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
             <figcaption class="mono"><b></b>Blue team · exercise floor</figcaption>
           </figure>
 
-          <!-- Product console mock -->
-          <div class="console" role="img" aria-label="Example Cloud Range Performance Portal showing a live-fire exercise in progress">
-            <div class="console-bar">
-              <span class="dots"><i></i><i></i><i></i></span>
-              <span class="mono">performance-portal / exercise-ransomware-0417</span>
-              <span class="live mono"><b></b>LIVE</span>
-            </div>
-            <div class="console-body">
-              <div class="panel scores">
-                {scores.map((s) => (
-                  <div class="score">
-                    <p class="mono label">{s.who}</p>
-                    <p class="num">{s.score}<small>/100</small></p>
-                    <div class:list={['meter', s.kind]}><span style={`width:${s.score}%`}></span></div>
-                    <p class="mono delta">{s.delta} vs. last exercise</p>
-                  </div>
-                ))}
-              </div>
-              <div class="panel chart">
-                <p class="mono label">Mean time to detect · min</p>
-                <div class="bars">
-                  {bars.map((h, i) => <span style={`height:${h * 1.4}%`} class:list={[i === bars.length - 1 && 'now']}></span>)}
+          <!-- Range topology (client's Hero Graphic, restyled) + live scores -->
+          <div class="hero-card">
+            <HeroTopology />
+            <div class="score-chip" aria-label="Live exercise scores">
+              {scores.map((s) => (
+                <div class="score">
+                  <p class="mono label">{s.who}</p>
+                  <p class="num">{s.score}<small>/100</small></p>
+                  <div class:list={['meter', s.kind]}><span style={`width:${s.score}%`}></span></div>
                 </div>
-                <p class="mono chart-foot"><span>Q1</span><span class="up">↓ 66%</span><span>Q3</span></p>
-              </div>
-              <div class="panel feed">
-                <p class="mono label">Attack timeline</p>
-                <ul>
-                  {timeline.map((e) => (
-                    <li>
-                      <span class="mono t">{e.t}</span>
-                      <span class="mono id">{e.id}</span>
-                      <span class="nm">{e.name}</span>
-                      <span class:list={['mono', 'st', e.state]}>{e.state}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
           </div>
@@ -744,7 +710,9 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .hero-photo { position: absolute; top: -48px; right: -56px; width: 70%; aspect-ratio: 4 / 3; border-radius: 18px; border: 1px solid var(--line-2); }
   .hero-photo figcaption { position: absolute; z-index: 1; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; padding: 0.35rem 0.6rem; border-radius: 6px; background: rgba(7, 10, 8, 0.7); backdrop-filter: blur(6px); color: var(--text); font-size: 0.68rem; }
   .hero-photo figcaption b { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px var(--lime); }
-  .hero-vis .console { position: relative; z-index: 1; margin: 140px 70px 0 -24px; }
+  .hero-card { position: relative; z-index: 1; margin: 170px 40px 0 -24px; }
+  .score-chip { position: absolute; left: -56px; top: -122px; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; width: 360px; padding: 1rem 1.1rem; background: rgba(14, 18, 15, 0.92); backdrop-filter: blur(10px); border: 1px solid var(--line-2); border-radius: 12px; box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7); }
+  .score-chip .num { font-size: 1.5rem; }
 
   .floor { position: relative; min-height: 640px; display: grid; align-items: end; border-bottom: 1px solid var(--line); }
   .floor-img { position: absolute; inset: 0; }
@@ -824,7 +792,8 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
     .mnav-panel .mono { color: var(--lime); }
     .hero-in, .split, .proof, .floor-in { grid-template-columns: 1fr; gap: 3rem; }
     .hero-photo { position: relative; top: 0; right: 0; width: 100%; aspect-ratio: 16 / 9; }
-    .hero-vis .console { margin: -80px 16px 0; }
+    .hero-card { margin: -80px 16px 0; }
+    .score-chip { left: 16px; top: -40px; }
     .chips { justify-items: start; }
     .chip.purple, .chip.green { margin: 0; }
     .bento { grid-template-columns: 1fr 1fr; }
@@ -843,7 +812,8 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
     .feed li { grid-template-columns: 1fr auto; }
     .feed .t { display: none; }
     .feed .id { grid-column: 1 / -1; }
-    .hero-vis .console { margin: -40px 0 0; }
+    .hero-card { margin: -40px 0 0; }
+    .score-chip { position: static; width: auto; grid-template-columns: 1fr 1fr; margin-top: 0.75rem; }
     .floor-in { padding: 6rem 0 3rem; }
     .chip { min-width: 0; }
     .trace-foot { grid-template-columns: 1fr 1fr; }
