@@ -362,10 +362,10 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .sw.hit { border: 1.5px solid var(--red); }
   .sw.blue { background: var(--cy); }
 
-  .ticker { background: var(--hi); color: #0a0a0a; overflow: hidden; padding: 0.9rem 0; }
+  .ticker { background: var(--cy); color: #0a0a0a; overflow: hidden; padding: 0.9rem 0; }
   .ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
   .ticker span { font: 700 0.9rem 'JetBrains Mono Variable', monospace; text-transform: uppercase; white-space: nowrap; padding-right: 1.5rem; }
-  .ticker b { margin-left: 1.5rem; color: var(--red); }
+  .ticker b { margin-left: 1.5rem; color: #0a0a0a; }
   @keyframes scroll { to { transform: translateX(-50%); } }
 
   .stats { border-bottom: 1px solid var(--line); }
