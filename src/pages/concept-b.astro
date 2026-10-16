@@ -1,0 +1,513 @@
+---
+// Concept B — "The Exercise"
+// Light, warm, editorial. Instead of a feature tour, the homepage *is* one
+// live-fire exercise told minute by minute, so the story does the selling.
+// Different structure from A and C on purpose: narrative spine, serif voice.
+import '@fontsource-variable/fraunces';
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import {
+  nav, products, stats, industries, customers, quote, award, posts, footer, contact,
+} from '../data/site';
+
+const chapters = [
+  {
+    time:   '08:30',
+    kicker: 'Replicate',
+    title:  'Your network, rebuilt.',
+    body:   'Before anyone sits down, Cloud Range stands up a dedicated range that mirrors your environment, running licensed versions of the same SIEM, EDR, and firewall your analysts use every day.',
+    visual: 'env',
+  },
+  {
+    time:   '09:02',
+    kicker: 'Attack',
+    title:  'The phish lands.',
+    body:   'Our red team opens with the techniques targeting your sector right now, all mapped to MITRE ATT&CK, across IT, OT/ICS, and cloud. Nobody on the blue team knows the script.',
+    visual: 'mail',
+  },
+  {
+    time:   '09:11',
+    kicker: 'Detect',
+    title:  'Who noticed first?',
+    body:   'Your analysts and your AI agents work the same incident side by side. Every alert, query, escalation, and decision is captured as it happens.',
+    visual: 'race',
+  },
+  {
+    time:   '09:47',
+    kicker: 'Measure',
+    title:  'Contained. Now the hard part.',
+    body:   'The Performance Portal™ scores every person, agent, and process. Your experts walk the team through what worked, what was missed, and why.',
+    visual: 'score',
+  },
+  {
+    time:   'Next quarter',
+    kicker: 'Improve',
+    title:  'Run it again. Better.',
+    body:   'Targeted FlexLabs™ close the gaps, Tabletop 2.0 brings in leadership, and the next exercise proves the improvement with numbers.',
+    visual: 'trend',
+  },
+];
+
+const env = ['SIEM', 'EDR', 'Firewall', 'Active Directory', 'Email', 'Cloud tenant', 'OT / PLC', 'SOC agent'];
+---
+<Base title="Cloud Range — Concept B · The Exercise">
+  <div class="b">
+    <header class="hdr">
+      <div class="wrap hdr-in">
+        <Logo />
+        <nav class="menu" aria-label="Primary">
+          {nav.map((group) => (
+            <div class="menu-item">
+              <button type="button" aria-haspopup="true">{group.label}</button>
+              <div class="drop">
+                <ul>{group.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+              </div>
+            </div>
+          ))}
+        </nav>
+        <a href="#demo" class="btn btn-purple">Request a demo</a>
+        <details class="mnav">
+          <summary aria-label="Open menu">Menu</summary>
+          <div class="mnav-panel">
+            {nav.map((g) => (
+              <details>
+                <summary>{g.label}</summary>
+                <ul>{g.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+              </details>
+            ))}
+            <a href="#demo" class="btn btn-purple">Request a demo</a>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="wrap hero-in">
+          <a href="#proof" class="award-chip"><span>★</span> {award.title}, 2026</a>
+          <h1>The attack is coming.<br /><em>Rehearse it first.</em></h1>
+          <p class="lede">Cloud Range validates the cyber readiness of human teams and AI agents with live-fire attacks in a replica of your own environment, then measures exactly how they performed.</p>
+          <div class="ctas">
+            <a href="#demo" class="btn btn-purple btn-lg">Request a demo</a>
+            <a href="#exercise" class="btn btn-text btn-lg">Watch an exercise unfold ↓</a>
+          </div>
+        </div>
+        <div class="wrap">
+          <ol class="clock" aria-label="Exercise timeline">
+            {chapters.map((c, i) => (
+              <li><a href={`#ch-${i}`}><span class="clock-t">{c.time}</span><span class="clock-k">{c.kicker}</span></a></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- LOGOS -->
+      <section class="logos" aria-label="Customers">
+        <div class="wrap">
+          <p>Exercises run for security teams at</p>
+          <ul>{customers.map((c) => <li>{c}</li>)}</ul>
+        </div>
+      </section>
+
+      <!-- THE EXERCISE -->
+      <section class="exercise" id="exercise">
+        <div class="wrap">
+          <header class="ex-head">
+            <p class="eyebrow">A live-fire exercise, minute by minute</p>
+            <h2>Here's what a morning on the range looks like.</h2>
+          </header>
+
+          {chapters.map((c, i) => (
+            <article class="ch" id={`ch-${i}`}>
+              <div class="ch-time">
+                <p class="t">{c.time}</p>
+                <p class="k">{String(i + 1).padStart(2, '0')} · {c.kicker}</p>
+              </div>
+              <div class="ch-copy">
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+              </div>
+              <div class:list={['ch-vis', `vis-${c.visual}`]} aria-hidden="true">
+                {c.visual === 'env' && (
+                  <ul class="env">{env.map((e) => <li>{e}</li>)}</ul>
+                )}
+                {c.visual === 'mail' && (
+                  <div class="mail">
+                    <p class="mail-from"><b>IT Service Desk</b> &lt;it-desk@corp-helpdesk.co&gt;</p>
+                    <p class="mail-sub">Action required: password expires today</p>
+                    <p class="mail-body">Your credentials will expire in 2 hours. Review the attached policy to keep access…</p>
+                    <p class="mail-att">📎 Password_Policy_2026.docm</p>
+                    <p class="mail-tag">T1566.001 · Spearphishing attachment</p>
+                  </div>
+                )}
+                {c.visual === 'race' && (
+                  <div class="race">
+                    <div class="lane"><span>Analyst · Tier 2</span><span class="bar human" style="--w:62%"></span><b>6m 40s</b></div>
+                    <div class="lane"><span>SOC agent · AI</span><span class="bar agent" style="--w:38%"></span><b>4m 05s</b></div>
+                    <div class="lane"><span>Escalation to IR</span><span class="bar esc" style="--w:84%"></span><b>9m 12s</b></div>
+                    <p class="race-note">Agent detected first. Analyst made the right containment call.</p>
+                  </div>
+                )}
+                {c.visual === 'score' && (
+                  <div class="score">
+                    <div class="score-top"><span>Blue team readiness</span><b>87</b></div>
+                    <ul>
+                      <li><span>Detection</span><i style="--w:92%"></i></li>
+                      <li><span>Containment</span><i style="--w:88%"></i></li>
+                      <li><span>Credential access</span><i class="warn" style="--w:64%"></i></li>
+                      <li><span>Communication</span><i style="--w:71%"></i></li>
+                    </ul>
+                  </div>
+                )}
+                {c.visual === 'trend' && (
+                  <div class="trend">
+                    <svg viewBox="0 0 300 140">
+                      <polyline points="10,30 70,46 130,68 190,90 250,108 290,116" />
+                      <circle cx="290" cy="116" r="5" />
+                    </svg>
+                    <p><b>−66%</b> mean time to detect, Q1 → Q3</p>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- OUTCOMES -->
+      <section class="outcomes">
+        <div class="wrap">
+          <h2>What changes after a season on the range.</h2>
+          <div class="stats">
+            {stats.map((s) => (
+              <div><p class="stat">{s.value}<span>{s.unit}</span></p><p>{s.label}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section class="sec" id="platform">
+        <div class="wrap">
+          <header class="sec-head">
+            <p class="eyebrow">Ways to work with Cloud Range</p>
+            <h2>Start where your readiness gap is.</h2>
+          </header>
+          <ul class="menu-cards">
+            {products.map((p, i) => (
+              <li>
+                <a href="#" style={`--c:var(--c${i % 3})`}>
+                  <p class="mc-tag">{p.tagline}</p>
+                  <h3>{p.name}</h3>
+                  <p class="mc-body">{p.body}</p>
+                  <span class="mc-go">Learn more →</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- PROOF -->
+      <section class="proof" id="proof">
+        <div class="wrap proof-in">
+          <blockquote>“{quote.text}”</blockquote>
+          <p class="src">{quote.source}</p>
+          <div class="seals">
+            <span>{award.title} · {award.body}</span>
+            <span>MITRE ATT&amp;CK® aligned</span>
+            <span>1,500+ labs &amp; scenarios</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDUSTRIES -->
+      <section class="sec ind-sec" id="industries">
+        <div class="wrap ind-in">
+          <h2>Built for teams who can't afford a first time.</h2>
+          <ul class="ind">
+            {industries.map((i) => <li><a href="#"><b>{i.name}</b><span>{i.body}</span></a></li>)}
+          </ul>
+        </div>
+      </section>
+
+      <!-- RESOURCES -->
+      <section class="sec" id="resources">
+        <div class="wrap">
+          <header class="sec-head row">
+            <h2>From the field</h2>
+            <a href="#" class="btn btn-text">All articles →</a>
+          </header>
+          <ul class="posts">
+            {posts.map((p) => (
+              <li><a href="#"><time>{p.date}</time><h3>{p.title}</h3><span class="pt">{p.tag}</span></a></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-wrap" id="demo">
+        <div class="wrap">
+          <div class="cta">
+            <h2>Book your team's first exercise.</h2>
+            <p>We'll scope a live-fire scenario around your environment and show you what the debrief looks like.</p>
+            <div class="ctas">
+              <a href="#" class="btn btn-white btn-lg">Request a demo</a>
+              <a href={`tel:${contact.phone.replaceAll('.', '')}`} class="btn btn-ghost-w btn-lg">Call {contact.phone}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ftr">
+      <div class="wrap ftr-in">
+        <div class="ftr-brand">
+          <Logo />
+          <p>Validate cyber readiness of humans &amp; AI agents.</p>
+          <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        </div>
+        {footer.map((col) => (
+          <div>
+            <p class="ftr-t">{col.title}</p>
+            <ul>{col.links.map((l) => <li><a href="#">{l}</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <div class="wrap ftr-legal">
+        <span>© 2026 Cloud Range</span>
+        <a href="#">Privacy policy</a>
+      </div>
+    </footer>
+  </div>
+</Base>
+
+<style>
+  .b {
+    --paper:    #f6f3ee;
+    --paper-2:  #efeae2;
+    --card:     #ffffff;
+    --ink:      #17141c;
+    --ink-2:    #3d3845;
+    --muted:    #6c6675;
+    --line:     #e2dcd2;
+    --purple:   #9300fe;
+    --purple-d: #6d00be;
+    --purple-l: #f1e4ff;
+    --green:    #84bd00;
+    --green-d:  #4f7300;
+    --orange:   #ff8500;
+    --c0:       var(--purple);
+    --c1:       var(--green);
+    --c2:       var(--orange);
+    --serif:    'Fraunces Variable', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter Variable', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; font-variation-settings: 'opsz' 144; }
+  h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); }
+  a { text-decoration: none; color: inherit; }
+  .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 1rem; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.92rem; padding: 0.7rem 1.2rem; border-radius: 999px; transition: 0.2s; white-space: nowrap; }
+  .btn-lg { padding: 1rem 1.7rem; font-size: 1rem; }
+  .btn-purple { background: var(--purple); color: #fff; }
+  .btn-purple:hover { background: var(--purple-d); }
+  .btn-text { color: var(--ink); padding-inline: 0.5rem; }
+  .btn-text:hover { color: var(--purple); }
+  .btn-white { background: #fff; color: var(--purple-d); }
+  .btn-white:hover { background: var(--green); color: var(--ink); }
+  .btn-ghost-w { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.5); }
+  .btn-ghost-w:hover { box-shadow: inset 0 0 0 1.5px #fff; }
+
+  /* Header */
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(246, 243, 238, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .hdr-in { display: flex; align-items: center; gap: 2rem; height: 72px; }
+  .menu { display: flex; margin: 0 auto; }
+  .menu-item { position: relative; }
+  .menu-item > button { background: none; border: 0; padding: 0.5rem 0.9rem; font-weight: 500; font-size: 0.95rem; color: var(--ink-2); cursor: pointer; border-radius: 999px; }
+  .menu-item:hover > button, .menu-item:focus-within > button { background: var(--paper-2); color: var(--ink); }
+  .drop { position: absolute; top: 100%; left: 50%; min-width: 270px; padding: 0.6rem; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 50px rgba(40, 20, 60, 0.12); opacity: 0; visibility: hidden; transform: translate(-50%, 6px); transition: 0.18s; }
+  .menu-item:hover .drop, .menu-item:focus-within .drop { opacity: 1; visibility: visible; transform: translate(-50%, 10px); }
+  .drop::before { content: ''; position: absolute; inset: -14px 0 auto; height: 14px; }
+  .drop a { display: block; padding: 0.55rem 0.8rem; border-radius: 10px; font-weight: 500; }
+  .drop a:hover { background: var(--purple-l); color: var(--purple-d); }
+  .mnav { display: none; }
+
+  /* Hero */
+  .hero { padding: 6rem 0 0; text-align: center; overflow: hidden; }
+  .hero-in { display: grid; justify-items: center; }
+  .award-chip { display: inline-flex; gap: 0.5rem; align-items: center; font-size: 0.85rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 999px; background: var(--card); border: 1px solid var(--line); margin-bottom: 2rem; }
+  .award-chip span { color: var(--orange); }
+  h1 { font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.98; letter-spacing: -0.035em; }
+  h1 em { font-style: italic; color: var(--purple); font-weight: 400; }
+  .lede { font-size: 1.2rem; color: var(--ink-2); max-width: 40rem; margin: 2rem 0 2.5rem; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+
+  .clock { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 5rem; border-top: 1px solid var(--ink); }
+  .clock li { position: relative; }
+  .clock li::before { content: ''; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); }
+  .clock li:nth-child(2)::before, .clock li:nth-child(3)::before { background: var(--orange); border-color: var(--orange); }
+  .clock li:nth-child(4)::before, .clock li:nth-child(5)::before { background: var(--green); border-color: var(--green); }
+  .clock a { display: grid; gap: 0.15rem; text-align: left; padding: 1.25rem 1rem 2rem 0; }
+  .clock a:hover .clock-k { color: var(--purple); }
+  .clock-t { font-family: var(--serif); font-size: 1.5rem; }
+  .clock-k { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+
+  .logos { background: var(--card); border-block: 1px solid var(--line); padding: 2.25rem 0; text-align: center; }
+  .logos p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+  .logos ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2.5rem; }
+  .logos li { font-weight: 700; font-size: 1.05rem; color: #6c6675; letter-spacing: -0.01em; }
+
+  /* Exercise narrative */
+  .exercise { padding: 7rem 0 3rem; }
+  .ex-head { max-width: 44rem; margin-bottom: 4rem; }
+  .ch { display: grid; grid-template-columns: 11rem 1fr 1fr; gap: 3rem; padding: 3.5rem 0; border-top: 1px solid var(--line); align-items: start; }
+  .ch-time { position: sticky; top: 96px; }
+  .ch-time .t { font-family: var(--serif); font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; }
+  .ch-time .k { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple); margin-top: 0.6rem; }
+  .ch-copy h3 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; }
+  .ch-copy p { font-size: 1.08rem; color: var(--ink-2); max-width: 30rem; }
+  .ch-vis { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 1.5rem; min-height: 220px; display: grid; align-content: center; box-shadow: 0 20px 40px -24px rgba(40, 20, 60, 0.2); }
+
+  .env { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .env li { font-size: 0.85rem; font-weight: 600; padding: 0.55rem 0.9rem; border-radius: 10px; background: var(--paper); border: 1px solid var(--line); }
+  .env li:last-child { background: var(--purple-l); border-color: #dcc2ff; color: var(--purple-d); }
+
+  .mail { display: grid; gap: 0.45rem; font-size: 0.9rem; }
+  .mail-from { color: var(--muted); font-size: 0.82rem; }
+  .mail-from b { color: var(--ink); }
+  .mail-sub { font-weight: 700; font-size: 1.05rem; }
+  .mail-body { color: var(--ink-2); }
+  .mail-att { font-weight: 600; padding: 0.6rem 0.8rem; background: var(--paper); border-radius: 10px; }
+  .mail-tag { justify-self: start; font-size: 0.75rem; font-weight: 700; color: #9a4f00; background: #fff0de; padding: 0.25rem 0.6rem; border-radius: 6px; }
+
+  .race { display: grid; gap: 1rem; }
+  .lane { display: grid; grid-template-columns: 8.5rem 1fr 4rem; gap: 0.75rem; align-items: center; font-size: 0.85rem; font-weight: 500; }
+  .lane b { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar { height: 10px; border-radius: 5px; background: var(--paper-2); position: relative; overflow: hidden; }
+  .bar::after { content: ''; position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 5px; background: var(--ink); }
+  .bar.agent::after { background: var(--purple); }
+  .bar.human::after { background: var(--green); }
+  .bar.esc::after { background: var(--orange); }
+  .race-note { font-size: 0.85rem; color: var(--muted); padding-top: 0.75rem; border-top: 1px solid var(--line); }
+
+  .score-top { display: flex; justify-content: space-between; align-items: center; font-weight: 600; padding-bottom: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+  .score-top b { font-family: var(--serif); font-size: 2.6rem; font-weight: 500; color: var(--purple); line-height: 1; }
+  .score ul { display: grid; gap: 0.75rem; }
+  .score li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 0.75rem; align-items: center; font-size: 0.85rem; }
+  .score i { height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--green) var(--w), var(--paper-2) var(--w)); }
+  .score i.warn { background: linear-gradient(90deg, var(--orange) var(--w), var(--paper-2) var(--w)); }
+
+  .trend svg { width: 100%; height: auto; }
+  .trend polyline { fill: none; stroke: var(--purple); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .trend circle { fill: var(--green); }
+  .trend p { font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem; }
+  .trend b { font-family: var(--serif); font-size: 1.5rem; color: var(--ink); font-weight: 500; margin-right: 0.25rem; }
+
+  /* Outcomes */
+  .outcomes { background: var(--purple); color: #fff; padding: 6rem 0; }
+  .outcomes h2 { max-width: 20ch; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3.5rem; }
+  .stats > div { border-top: 1px solid rgba(255, 255, 255, 0.35); padding-top: 1.5rem; }
+  .stat { font-family: var(--serif); font-size: clamp(3.2rem, 6vw, 5.2rem); line-height: 1; letter-spacing: -0.04em; }
+  .stat span { color: #c6f25a; }
+  .stats p:last-child { color: rgba(255, 255, 255, 0.88); margin-top: 0.75rem; max-width: 15rem; }
+
+  /* Products */
+  .sec { padding: 7rem 0; }
+  .sec-head { margin-bottom: 3rem; max-width: 44rem; }
+  .sec-head.row { max-width: none; display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
+  .menu-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.25rem; }
+  .menu-cards li { grid-column: span 2; }
+  .menu-cards li:nth-child(-n + 2) { grid-column: span 3; }
+  .menu-cards a { display: flex; flex-direction: column; gap: 0.75rem; height: 100%; padding: 2rem; background: var(--card); border-radius: 20px; border: 1px solid var(--line); border-top: 5px solid var(--c); transition: transform 0.2s, box-shadow 0.2s; }
+  .menu-cards a:hover { transform: translateY(-3px); box-shadow: 0 24px 40px -20px rgba(40, 20, 60, 0.25); }
+  .mc-tag { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .menu-cards h3 { font-size: 1.9rem; }
+  .mc-body { color: var(--ink-2); flex: 1; }
+  .mc-go { font-weight: 600; color: var(--purple); }
+
+  /* Proof */
+  .proof { background: var(--paper-2); padding: 7rem 0; text-align: center; }
+  .proof-in { display: grid; justify-items: center; }
+  .proof blockquote { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; font-style: italic; font-weight: 400; }
+  .src { margin-top: 1.5rem; font-weight: 600; color: var(--muted); }
+  .seals { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 3rem; }
+  .seals span { font-size: 0.85rem; font-weight: 600; padding: 0.6rem 1.1rem; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
+
+  .ind-in { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .ind { display: grid; border-top: 1px solid var(--ink); }
+  .ind a { display: grid; grid-template-columns: 14rem 1fr; gap: 1.5rem; padding: 1.4rem 0; border-bottom: 1px solid var(--line); transition: padding 0.2s, color 0.2s; }
+  .ind a:hover { padding-left: 0.75rem; color: var(--purple); }
+  .ind b { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; }
+  .ind span { color: var(--muted); }
+
+  .posts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .posts a { display: flex; flex-direction: column; gap: 0.75rem; height: 100%; padding: 1.5rem; background: var(--card); border: 1px solid var(--line); border-radius: 18px; transition: border-color 0.2s; }
+  .posts a:hover { border-color: var(--purple); }
+  .posts time { font-size: 0.8rem; color: var(--muted); }
+  .posts h3 { font-size: 1.35rem; line-height: 1.2; flex: 1; }
+  .pt { align-self: start; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green-d); background: #eef6d9; padding: 0.25rem 0.6rem; border-radius: 6px; }
+
+  .cta-wrap { padding: 0 0 6rem; }
+  .cta { background: var(--purple); color: #fff; border-radius: 28px; padding: 5rem 3rem; text-align: center; display: grid; justify-items: center; gap: 1.25rem; background-image: radial-gradient(60% 90% at 100% 100%, rgba(132, 189, 0, 0.45), transparent 60%), radial-gradient(50% 70% at 0% 0%, rgba(255, 133, 0, 0.35), transparent 60%); }
+  .cta h2 { font-size: clamp(2.4rem, 5vw, 4rem); max-width: 16ch; }
+  .cta p { font-size: 1.15rem; max-width: 34rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 0.75rem; }
+
+  .ftr { border-top: 1px solid var(--line); padding: 4rem 0 6rem; }
+  .ftr-in { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2rem; }
+  .ftr-brand { display: grid; gap: 1rem; align-content: start; color: var(--muted); font-size: 0.92rem; }
+  .ftr-brand a { color: var(--purple); font-weight: 600; }
+  .ftr-t { font-weight: 700; margin-bottom: 0.9rem; }
+  .ftr ul { display: grid; gap: 0.5rem; }
+  .ftr li a { color: var(--ink-2); font-size: 0.9rem; }
+  .ftr li a:hover { color: var(--purple); }
+  .ftr-legal { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+
+  @media (max-width: 1080px) {
+    .menu, .hdr-in > .btn { display: none; }
+    .mnav { display: block; margin-left: auto; }
+    .mnav > summary { font-weight: 600; padding: 0.55rem 1.1rem; border-radius: 999px; background: var(--purple); color: #fff; }
+    .mnav-panel { position: absolute; left: 0; right: 0; top: 72px; background: var(--paper); border-bottom: 1px solid var(--line); padding: 0.5rem 16px 1.5rem; display: grid; max-height: calc(100vh - 72px); overflow-y: auto; }
+    .mnav-panel details { border-bottom: 1px solid var(--line); }
+    .mnav-panel details summary { padding: 1rem 0; font-family: var(--serif); font-size: 1.3rem; }
+    .mnav-panel details summary::after { content: '+'; float: right; color: var(--purple); }
+    .mnav-panel details[open] summary::after { content: '−'; }
+    .mnav-panel ul { display: grid; gap: 0.6rem; padding-bottom: 1rem; }
+    .mnav-panel > .btn { margin-top: 1.25rem; }
+    .ch { grid-template-columns: 1fr 1fr; gap: 1.5rem 2.5rem; }
+    .ch-time { position: static; grid-column: 1 / -1; display: flex; align-items: baseline; gap: 1rem; }
+    .ch-time .k { margin: 0; }
+    .stats, .posts { grid-template-columns: 1fr 1fr; }
+    .menu-cards { grid-template-columns: 1fr 1fr; }
+    .menu-cards li, .menu-cards li:nth-child(-n + 2) { grid-column: span 1; }
+    .menu-cards li:first-child { grid-column: 1 / -1; }
+    .ind-in { grid-template-columns: 1fr; gap: 2rem; }
+    .ftr-in { grid-template-columns: 1fr 1fr; }
+    .ftr-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding-top: 3.5rem; }
+    .clock { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid var(--ink); margin-top: 3.5rem; margin-left: 6px; }
+    .clock li::before { top: 1.1rem; left: -6px; }
+    .clock a { padding: 0.75rem 0 0.75rem 1.5rem; grid-template-columns: 7.5rem 1fr; align-items: baseline; }
+    .clock-t { font-size: 1.2rem; }
+    .exercise, .sec, .proof { padding: 4.5rem 0; }
+    .ch { grid-template-columns: 1fr; padding: 2.5rem 0; }
+    .ch-time .t { font-size: 2rem; }
+    .lane { grid-template-columns: 1fr 4rem; }
+    .lane .bar { grid-column: 1 / -1; grid-row: 2; }
+    .score li { grid-template-columns: 1fr; gap: 0.35rem; }
+    .stats, .posts, .menu-cards { grid-template-columns: 1fr; }
+    .ind a { grid-template-columns: 1fr; gap: 0.25rem; }
+    .cta { padding: 3.5rem 1.5rem; border-radius: 20px; }
+    .sec-head.row { flex-direction: column; align-items: start; }
+  }
+</style>

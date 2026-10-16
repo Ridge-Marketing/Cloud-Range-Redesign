@@ -1,0 +1,35 @@
+---
+// Recreated Cloud Range mark (shield + cloud) with the stencil wordmark.
+// Replace with the official SVG from the brand team before launch.
+interface Props {
+  tone?:  'dark' | 'light';
+  class?: string;
+}
+
+const { tone = 'dark', class: className } = Astro.props;
+const text = tone === 'light' ? '#fff' : '#0b0d0c';
+---
+<a href="/" class:list={['logo', className]} aria-label="Cloud Range home">
+  <svg viewBox="0 0 48 56" width="26" height="30" aria-hidden="true">
+    <path d="M24 3 5 10v15c0 13 8.2 22.6 19 28 10.8-5.4 19-15 19-28V10Z" fill="none" stroke="#84bd00" stroke-width="5" stroke-linejoin="round" />
+    <path d="M16.5 34h15a5.5 5.5 0 0 0 .6-11 8 8 0 0 0-15.3-1.4A6.3 6.3 0 0 0 16.5 34Z" fill="none" stroke="#84bd00" stroke-width="4" stroke-linejoin="round" />
+  </svg>
+  <span style={`color:${text}`}>Cloud Range</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  span {
+    font-family: 'Saira Stencil One', system-ui, sans-serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+</style>

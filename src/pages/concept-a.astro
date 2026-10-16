@@ -1,0 +1,546 @@
+---
+// Concept A — "Command"
+// Dark, technical, product-forward. Positions Cloud Range alongside the
+// SentinelOne / Cloudflare / Palo Alto tier: the hero *is* the product.
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import {
+  hero, nav, products, stats, capabilities, steps, industries,
+  customers, quote, award, posts, footer, contact,
+} from '../data/site';
+
+const timeline = [
+  { t: '09:02:14', id: 'T1566.001', name: 'Spearphishing attachment', state: 'detected' },
+  { t: '09:04:51', id: 'T1059.001', name: 'PowerShell execution',     state: 'detected' },
+  { t: '09:11:07', id: 'T1003.001', name: 'LSASS memory dump',        state: 'missed'   },
+  { t: '09:13:30', id: 'T1021.002', name: 'SMB lateral movement',     state: 'contained' },
+];
+
+const scores = [
+  { who: 'Blue Team · Human', score: 87, delta: '+12' },
+  { who: 'SOC Agent · AI',    score: 74, delta: '+5'  },
+];
+
+const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
+---
+<Base title="Cloud Range — Concept A · Command">
+  <div class="a">
+    <header class="hdr">
+      <div class="wrap hdr-in">
+        <Logo tone="light" />
+        <nav class="menu" aria-label="Primary">
+          {nav.map((group) => (
+            <div class="menu-item">
+              <button type="button" aria-haspopup="true">{group.label}<span aria-hidden="true">▾</span></button>
+              <ul class="drop">
+                {group.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </nav>
+        <div class="hdr-cta">
+          <a href="#" class="link-quiet">Partner portal</a>
+          <a href="#demo" class="btn btn-brand">Request a demo</a>
+        </div>
+        <details class="mnav">
+          <summary aria-label="Open menu"><span></span><span></span></summary>
+          <div class="mnav-panel">
+            {nav.map((g) => (
+              <div>
+                <p class="mono">{g.label}</p>
+                <ul>{g.items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+              </div>
+            ))}
+            <a href="#demo" class="btn btn-brand">Request a demo</a>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="wrap hero-in">
+          <div class="hero-copy">
+            <a href="#award" class="pill">
+              <span class="pill-dot"></span> Named {award.title} <span aria-hidden="true">→</span>
+            </a>
+            <h1>Validate the cyber readiness of <em>humans</em> &amp; <em>AI agents</em>.</h1>
+            <p class="lede">{hero.body}</p>
+            <div class="hero-ctas">
+              <a href="#demo" class="btn btn-brand btn-lg">Request a demo</a>
+              <a href="#how" class="btn btn-ghost btn-lg">See how it works</a>
+            </div>
+            <ul class="hero-proof mono">
+              <li>MITRE ATT&amp;CK aligned</li>
+              <li>IT · OT/ICS · Cloud · Hybrid</li>
+              <li>1,500+ scenarios</li>
+            </ul>
+          </div>
+
+          <!-- Product console mock -->
+          <div class="console" role="img" aria-label="Example Cloud Range Performance Portal showing a live-fire exercise in progress">
+            <div class="console-bar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="mono">performance-portal / exercise-ransomware-0417</span>
+              <span class="live mono"><b></b>LIVE</span>
+            </div>
+            <div class="console-body">
+              <div class="panel scores">
+                {scores.map((s) => (
+                  <div class="score">
+                    <p class="mono label">{s.who}</p>
+                    <p class="num">{s.score}<small>/100</small></p>
+                    <div class="meter"><span style={`width:${s.score}%`}></span></div>
+                    <p class="mono delta">{s.delta} vs. last exercise</p>
+                  </div>
+                ))}
+              </div>
+              <div class="panel chart">
+                <p class="mono label">Mean time to detect · min</p>
+                <div class="bars">
+                  {bars.map((h, i) => <span style={`height:${h * 1.4}%`} class:list={[i === bars.length - 1 && 'now']}></span>)}
+                </div>
+                <p class="mono chart-foot"><span>Q1</span><span class="up">↓ 66%</span><span>Q3</span></p>
+              </div>
+              <div class="panel feed">
+                <p class="mono label">Attack timeline</p>
+                <ul>
+                  {timeline.map((e) => (
+                    <li>
+                      <span class="mono t">{e.t}</span>
+                      <span class="mono id">{e.id}</span>
+                      <span class="nm">{e.name}</span>
+                      <span class:list={['mono', 'st', e.state]}>{e.state}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGOS -->
+      <section class="logos" aria-label="Customers">
+        <div class="wrap">
+          <p class="mono center muted">The world's most advanced SOCs depend on Cloud Range</p>
+          <ul class="logo-row">
+            {customers.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <!-- PROBLEM -->
+      <section class="sec">
+        <div class="wrap split">
+          <div>
+            <p class="eyebrow mono">// The readiness gap</p>
+            <h2>Move beyond assumed readiness.</h2>
+          </div>
+          <div class="contrast">
+            <div class="col old">
+              <p class="mono label">Assumed</p>
+              <ul>
+                <li>Training completed</li>
+                <li>Tools deployed</li>
+                <li>AI tested in isolation</li>
+                <li>Annual tabletop</li>
+              </ul>
+            </div>
+            <div class="col new">
+              <p class="mono label">Validated</p>
+              <ul>
+                <li>Performance under live attack</li>
+                <li>Detection proven in your stack</li>
+                <li>Agents scored on real decisions</li>
+                <li>Continuous, measured improvement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLATFORM BENTO -->
+      <section class="sec" id="platform">
+        <div class="wrap">
+          <div class="sec-head">
+            <p class="eyebrow mono">// Platform</p>
+            <h2>One range. Every way your defense gets tested.</h2>
+            <p class="muted">The leading cyber range platform for human readiness and AI validation — fully managed, built on your environment.</p>
+          </div>
+          <div class="bento">
+            {products.map((p, i) => (
+              <a href="#" class:list={['card', `card-${i}`]}>
+                <p class="mono card-n">0{i + 1}</p>
+                <h3>{p.name}</h3>
+                <p class="card-tag">{p.tagline}</p>
+                <p class="muted">{p.body}</p>
+                <span class="card-go mono">Explore →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- AI -->
+      <section class="sec ai" id="ai">
+        <div class="wrap split">
+          <div>
+            <p class="eyebrow mono">// AI Validation Range™</p>
+            <h2>Your SOC agents are about to make decisions. Test them first.</h2>
+            <p class="muted">Agentic AI is moving into detection and response faster than anyone can audit it. Cloud Range puts agents in the same live-fire scenarios as your analysts, then scores behavior, escalation, and outcome side by side.</p>
+            <a href="#demo" class="btn btn-ghost">Explore AI validation</a>
+          </div>
+          <ul class="checks">
+            {capabilities.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <!-- HOW -->
+      <section class="sec" id="how">
+        <div class="wrap">
+          <div class="sec-head">
+            <p class="eyebrow mono">// How it works</p>
+            <h2>Real experience, before the real incident.</h2>
+          </div>
+          <ol class="steps">
+            {steps.map((s) => (
+              <li>
+                <p class="mono step-n">{s.n}</p>
+                <h3>{s.title}</h3>
+                <p class="muted">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats" aria-label="Quantifiable impact">
+        <div class="wrap stats-in">
+          {stats.map((s) => (
+            <div>
+              <p class="stat">{s.value}<span>{s.unit}</span></p>
+              <p class="muted">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- INDUSTRIES -->
+      <section class="sec" id="industries">
+        <div class="wrap">
+          <div class="sec-head">
+            <p class="eyebrow mono">// Industries</p>
+            <h2>Built for the teams that can't afford a first time.</h2>
+          </div>
+          <ul class="ind">
+            {industries.map((i) => (
+              <li>
+                <a href="#">
+                  <h3>{i.name}</h3>
+                  <p class="muted">{i.body}</p>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- PROOF -->
+      <section class="sec" id="award">
+        <div class="wrap proof">
+          <figure class="quote">
+            <blockquote>“{quote.text}”</blockquote>
+            <figcaption class="mono">— {quote.source}</figcaption>
+          </figure>
+          <div class="award">
+            <p class="mono label">Award</p>
+            <p class="award-t">{award.title}</p>
+            <p class="muted">{award.body}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESOURCES -->
+      <section class="sec" id="resources">
+        <div class="wrap">
+          <div class="sec-head row">
+            <div>
+              <p class="eyebrow mono">// Intel</p>
+              <h2>Latest from Cloud Range</h2>
+            </div>
+            <a href="#" class="link-quiet">All articles →</a>
+          </div>
+          <ul class="posts">
+            {posts.map((p) => (
+              <li>
+                <a href="#">
+                  <p class="mono muted">{p.tag} · {p.date}</p>
+                  <h3>{p.title}</h3>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta" id="demo">
+        <div class="wrap cta-in">
+          <h2>Feel confident about your cyber defense.</h2>
+          <p class="muted">See a live-fire exercise in your own environment. 30 minutes, no slides.</p>
+          <div class="hero-ctas">
+            <a href="#" class="btn btn-brand btn-lg">Request a demo</a>
+            <a href={`tel:${contact.phone.replaceAll('.', '')}`} class="btn btn-ghost btn-lg">{contact.phone}</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ftr">
+      <div class="wrap ftr-in">
+        <div class="ftr-brand">
+          <Logo tone="light" />
+          <p class="muted">Validate cyber readiness of humans &amp; AI agents.</p>
+          <p class="muted"><a href={`mailto:${contact.email}`}>{contact.email}</a><br />{contact.phone}</p>
+        </div>
+        {footer.map((col) => (
+          <div>
+            <p class="mono label">{col.title}</p>
+            <ul>{col.links.map((l) => <li><a href="#">{l}</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <div class="wrap ftr-legal mono muted">
+        <span>© 2026 Cloud Range</span>
+        <a href="#">Privacy policy</a>
+      </div>
+    </footer>
+  </div>
+</Base>
+
+<style>
+  .a {
+    --bg:       #09070e;
+    --bg-2:     #110d18;
+    --panel:    #15111e;
+    --line:     rgba(255, 255, 255, 0.08);
+    --line-2:   rgba(255, 255, 255, 0.14);
+    --text:     #f1eef5;
+    --muted:    #9d96a8;
+    --purple:   #9300fe;
+    --purple-2: #a733ff;
+    --purple-t: #c08bff;
+    --lime:     #8fcc0a;
+    --lime-2:   #a9e22a;
+    --red:      #ff5d5d;
+    --amber:    #ff8500;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter Variable', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+  .mono { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.02em; }
+  .muted { color: var(--muted); }
+  .center { text-align: center; }
+  .label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.7rem; }
+  h1, h2, h3 { font-family: 'Space Grotesk Variable', 'Inter Variable', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; }
+  h2 { font-size: clamp(2rem, 4vw, 3.1rem); }
+  h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
+  a { text-decoration: none; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; padding: 0.7rem 1.1rem; border-radius: 8px; transition: background 0.2s, border-color 0.2s, transform 0.2s; white-space: nowrap; }
+  .btn-lg { padding: 0.95rem 1.4rem; font-size: 1rem; }
+  .btn-brand { background: var(--purple); color: #fff; box-shadow: 0 8px 24px -8px rgba(147, 0, 254, 0.7); }
+  .btn-brand:hover { background: var(--purple-2); }
+  .btn-ghost { border: 1px solid var(--line-2); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--purple-t); }
+  .link-quiet { color: var(--muted); font-size: 0.9rem; }
+  .link-quiet:hover { color: var(--text); }
+
+  /* Header */
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(9, 7, 14, 0.8); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .hdr-in { display: flex; align-items: center; gap: 2rem; height: 68px; }
+  .menu { display: flex; gap: 0.25rem; margin-right: auto; }
+  .menu-item { position: relative; }
+  .menu-item > button { background: none; border: 0; color: var(--text); padding: 0.5rem 0.75rem; font-size: 0.92rem; display: flex; gap: 0.35rem; align-items: center; cursor: pointer; border-radius: 6px; }
+  .menu-item > button span { font-size: 0.6rem; color: var(--muted); }
+  .menu-item:hover > button, .menu-item:focus-within > button { background: rgba(255, 255, 255, 0.05); }
+  .drop { position: absolute; top: calc(100% + 8px); left: 0; min-width: 260px; padding: 0.5rem; background: var(--panel); border: 1px solid var(--line-2); border-radius: 12px; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: 0.18s; }
+  .drop::before { content: ''; position: absolute; inset: -10px 0 auto; height: 10px; }
+  .menu-item:hover .drop, .menu-item:focus-within .drop { opacity: 1; visibility: visible; transform: none; }
+  .drop a { display: block; padding: 0.55rem 0.75rem; border-radius: 8px; font-size: 0.9rem; color: var(--text); }
+  .drop a:hover { background: rgba(147, 0, 254, 0.16); color: var(--purple-t); }
+  .hdr-cta { display: flex; gap: 1.25rem; align-items: center; }
+  .mnav { display: none; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: 5.5rem 0 6rem; border-bottom: 1px solid var(--line); }
+  .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%); }
+  .hero::after { content: ''; position: absolute; width: 720px; height: 720px; right: -120px; top: -200px; background: radial-gradient(closest-side, rgba(147, 0, 254, 0.35), transparent); pointer-events: none; }
+  .hero-in { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: center; }
+  .pill { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; padding: 0.4rem 0.85rem; border: 1px solid var(--line-2); border-radius: 999px; color: var(--muted); margin-bottom: 1.75rem; }
+  .pill:hover { color: var(--text); border-color: var(--purple-t); }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 10px var(--lime); }
+  h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); }
+  h1 em { font-style: normal; color: var(--purple-t); }
+  .lede { font-size: 1.12rem; color: var(--muted); margin: 1.5rem 0 2.25rem; max-width: 34rem; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero-proof { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 2.5rem; color: var(--muted); }
+  .hero-proof li::before { content: '■ '; color: var(--lime); font-size: 0.6rem; vertical-align: 2px; }
+
+  /* Console */
+  .console { background: linear-gradient(180deg, #16121f, #0d0a13); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(147, 0, 254, 0.2), 0 0 80px -20px rgba(147, 0, 254, 0.45); overflow: hidden; }
+  .console-bar { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); color: var(--muted); }
+  .console-bar .mono { font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: #2a2533; }
+  .live { margin-left: auto; color: var(--red); display: flex; align-items: center; gap: 6px; }
+  .live b { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 50% { opacity: 0.25; } }
+  .console-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .panel { background: #0f0c15; padding: 1.1rem 1.2rem; }
+  .scores { display: grid; gap: 1.1rem; }
+  .num { font-family: 'Space Grotesk Variable', sans-serif; font-size: 2rem; font-weight: 600; line-height: 1.1; margin-top: 0.25rem; }
+  .num small { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+  .meter { height: 5px; background: #221d2b; border-radius: 3px; margin: 0.5rem 0 0.4rem; overflow: hidden; }
+  .meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--lime), var(--lime-2)); }
+  .delta { color: var(--lime); font-size: 0.68rem; }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin: 1rem 0 0.5rem; }
+  .bars span { flex: 1; background: #2a2236; border-radius: 3px 3px 0 0; }
+  .bars span.now { background: var(--purple-2); }
+  .chart-foot { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.66rem; }
+  .chart-foot .up { color: var(--lime); }
+  .feed { grid-column: 1 / -1; }
+  .feed ul { margin-top: 0.6rem; display: grid; gap: 1px; }
+  .feed li { display: grid; grid-template-columns: 70px 82px 1fr auto; gap: 0.75rem; align-items: center; padding: 0.55rem 0; border-top: 1px solid var(--line); font-size: 0.85rem; }
+  .feed .t, .feed .id { font-size: 0.68rem; color: var(--muted); }
+  .feed .id { color: var(--purple-t); }
+  .st { font-size: 0.64rem; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .st.detected { color: var(--lime); background: rgba(140, 198, 63, 0.12); }
+  .st.missed { color: var(--red); background: rgba(255, 93, 93, 0.12); }
+  .st.contained { color: var(--amber); background: rgba(255, 133, 0, 0.14); }
+
+  /* Logos */
+  .logos { padding: 3rem 0; border-bottom: 1px solid var(--line); }
+  .logo-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; margin-top: 1.5rem; }
+  .logo-row li { font-family: 'Space Grotesk Variable', sans-serif; font-weight: 600; font-size: 1.15rem; color: #a39cae; letter-spacing: -0.01em; }
+
+  /* Sections */
+  .sec { padding: 7rem 0; border-bottom: 1px solid var(--line); }
+  .sec-head { max-width: 46rem; margin-bottom: 3.5rem; }
+  .sec-head.row { max-width: none; display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+  .sec-head p.muted { font-size: 1.1rem; margin-top: 1rem; }
+  .eyebrow { color: var(--lime); margin-bottom: 1rem; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .split > div > p.muted { margin: 1.25rem 0 2rem; font-size: 1.08rem; }
+
+  .contrast { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; }
+  .contrast .col { padding: 1.75rem; }
+  .contrast ul { display: grid; gap: 0.9rem; margin-top: 1rem; }
+  .old { background: var(--bg-2); }
+  .old li { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(255, 93, 93, 0.6); }
+  .new { background: linear-gradient(160deg, rgba(143, 204, 10, 0.12), transparent 70%); border-left: 1px solid var(--line-2); }
+  .new .label { color: var(--lime); }
+  .new li::before { content: '✓  '; color: var(--lime); }
+
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+  .card { position: relative; display: flex; flex-direction: column; gap: 0.6rem; padding: 1.75rem; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; color: var(--text); transition: border-color 0.2s, transform 0.2s; grid-column: span 2; min-height: 260px; }
+  .card:hover { border-color: rgba(167, 51, 255, 0.6); transform: translateY(-2px); }
+  .card-0, .card-1 { grid-column: span 3; }
+  .card-0 { background: radial-gradient(120% 120% at 100% 0%, rgba(147, 0, 254, 0.3), transparent 55%), var(--bg-2); }
+  .card-n { color: var(--muted); }
+  .card h3 { font-size: 1.45rem; margin-top: auto; }
+  .card-tag { color: var(--lime); font-weight: 500; }
+  .card-go { color: var(--muted); margin-top: 0.5rem; }
+  .card:hover .card-go { color: var(--purple-t); }
+
+  .ai { background: radial-gradient(60% 80% at 0% 50%, rgba(147, 0, 254, 0.16), transparent), var(--bg); }
+  .checks { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .checks li { padding: 1.1rem 0 1.1rem 2.25rem; border-bottom: 1px solid var(--line); position: relative; }
+  .checks li::before { content: ''; position: absolute; left: 0; top: 1.35rem; width: 14px; height: 14px; border: 2px solid var(--lime); border-radius: 3px; background: linear-gradient(var(--lime), var(--lime)) center / 6px 6px no-repeat; }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .steps li { background: var(--bg); padding: 2rem 1.75rem; display: grid; gap: 0.75rem; align-content: start; }
+  .step-n { color: var(--purple-t); font-size: 0.85rem; }
+  .steps h3 { font-size: 1.6rem; }
+
+  .stats { padding: 5rem 0; background: var(--purple); color: #fff; background-image: radial-gradient(50% 120% at 100% 0%, rgba(255, 133, 0, 0.35), transparent 60%); }
+  .stats-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .stat { font-family: 'Space Grotesk Variable', sans-serif; font-weight: 600; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.04em; }
+  .stat span { font-size: 0.5em; vertical-align: top; margin-left: 2px; }
+  .stat span { color: #c6f25a; }
+  .stats .muted { color: rgba(255, 255, 255, 0.85); margin-top: 0.75rem; max-width: 16rem; font-weight: 500; }
+
+  .ind { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .ind a { position: relative; display: grid; gap: 0.6rem; align-content: start; height: 100%; padding: 1.5rem; border: 1px solid var(--line); border-radius: 14px; color: var(--text); min-height: 200px; transition: 0.2s; }
+  .ind a:hover { border-color: var(--purple-2); background: var(--bg-2); }
+  .ind span { position: absolute; right: 1.25rem; bottom: 1.1rem; color: var(--purple-t); }
+
+  .proof { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+  .quote { padding: 3rem; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); }
+  .quote blockquote { font-family: 'Space Grotesk Variable', sans-serif; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; }
+  .quote figcaption { color: var(--muted); margin-top: 1.5rem; }
+  .award { padding: 2.25rem; border-radius: 14px; border: 1px solid rgba(255, 133, 0, 0.45); background: linear-gradient(160deg, rgba(255, 133, 0, 0.16), transparent); display: grid; align-content: end; gap: 0.5rem; }
+  .award-t { font-family: 'Space Grotesk Variable', sans-serif; font-size: 1.6rem; line-height: 1.15; font-weight: 600; }
+
+  .posts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .posts a { display: grid; gap: 1rem; padding: 1.5rem; border-top: 2px solid var(--line-2); color: var(--text); height: 100%; transition: border-color 0.2s; }
+  .posts a:hover { border-color: var(--purple-2); }
+  .posts h3 { font-size: 1.1rem; line-height: 1.3; }
+
+  .cta { padding: 8rem 0; text-align: center; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; inset: auto 0 -40%; height: 80%; background: radial-gradient(closest-side, rgba(147, 0, 254, 0.4), transparent); }
+  .cta-in { position: relative; display: grid; justify-items: center; gap: 1.25rem; }
+  .cta h2 { font-size: clamp(2.4rem, 5vw, 4rem); max-width: 18ch; }
+  .cta p { font-size: 1.1rem; margin-bottom: 1rem; }
+
+  .ftr { border-top: 1px solid var(--line); padding: 4rem 0 6rem; background: var(--bg-2); }
+  .ftr-in { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2rem; }
+  .ftr-brand { display: grid; gap: 1rem; align-content: start; }
+  .ftr ul { display: grid; gap: 0.55rem; margin-top: 1rem; }
+  .ftr li a, .ftr-brand a { color: var(--text); font-size: 0.9rem; opacity: 0.8; }
+  .ftr li a:hover { color: var(--purple-t); opacity: 1; }
+  .ftr-legal { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+  /* Responsive */
+  @media (max-width: 1080px) {
+    .menu, .hdr-cta { display: none; }
+    .mnav { display: block; margin-left: auto; }
+    .mnav summary { width: 40px; height: 40px; display: grid; place-content: center; gap: 6px; border: 1px solid var(--line-2); border-radius: 8px; }
+    .mnav summary span { width: 18px; height: 2px; background: var(--text); display: block; }
+    .mnav-panel { position: absolute; left: 0; right: 0; top: 68px; background: var(--bg); border-bottom: 1px solid var(--line); padding: 1.5rem 16px 2rem; display: grid; gap: 1.5rem; max-height: calc(100vh - 68px); overflow-y: auto; }
+    .mnav-panel ul { display: grid; gap: 0.5rem; margin-top: 0.5rem; }
+    .mnav-panel .mono { color: var(--lime); }
+    .hero-in, .split, .proof { grid-template-columns: 1fr; gap: 3rem; }
+    .bento { grid-template-columns: 1fr 1fr; }
+    .card, .card-0, .card-1 { grid-column: span 1; }
+    .card-0 { grid-column: 1 / -1; }
+    .steps, .stats-in, .posts { grid-template-columns: 1fr 1fr; }
+    .ind { grid-template-columns: repeat(3, 1fr); }
+    .ftr-in { grid-template-columns: 1fr 1fr; }
+    .ftr-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 3.5rem 0 4rem; }
+    .sec { padding: 4.5rem 0; }
+    .console-body { grid-template-columns: 1fr; }
+    .feed li { grid-template-columns: 1fr auto; }
+    .feed .t { display: none; }
+    .feed .id { grid-column: 1 / -1; }
+    .contrast, .bento, .steps, .posts, .ind { grid-template-columns: 1fr; }
+    .contrast .new { border-left: 0; border-top: 1px solid var(--line-2); }
+    .stats-in { grid-template-columns: 1fr 1fr; gap: 2.5rem 1rem; }
+    .quote { padding: 2rem; }
+    .sec-head.row { flex-direction: column; align-items: start; }
+  }
+</style>
