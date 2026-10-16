@@ -145,7 +145,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
             <h1>Validate the cyber readiness of <em class="h">humans</em> &amp; <em class="ai">AI agents</em>.</h1>
             <p class="lede">{hero.body}</p>
             <div class="hero-ctas">
-              <a href="#demo" class="btn btn-brand btn-lg">Request a demo</a>
+              <a href="#demo" class="btn btn-purple btn-lg">Request a demo</a>
               <a href="#how" class="btn btn-ghost btn-lg">See how it works</a>
             </div>
             <ul class="hero-proof mono">
@@ -156,7 +156,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
           </div>
 
           <div class="hero-vis">
-          <figure class="hero-photo duo">
+          <figure class="hero-photo duo duo-purple">
             <Image src={analystImg} alt="Analyst concentrating on a monitor during an exercise" widths={[600, 900, 1200]} sizes="(max-width: 1080px) 100vw, 640px" loading="eager" />
             <figcaption class="mono"><b></b>Blue team · exercise floor</figcaption>
           </figure>
@@ -217,7 +217,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
 
       <!-- EXERCISE FLOOR -->
       <section class="floor" aria-labelledby="floor-h">
-        <div class="floor-img duo">
+        <div class="floor-img duo duo-purple">
           <Image src={exerciseImg} alt="Operations floor with staff working an incident at their workstations" widths={[800, 1400, 2000]} sizes="100vw" />
         </div>
         <div class="wrap floor-in">
@@ -525,6 +525,8 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
   .btn-lg { padding: 0.95rem 1.4rem; font-size: 1rem; }
   .btn-brand { background: var(--green); color: var(--green-ink); box-shadow: 0 8px 24px -8px rgba(132, 189, 0, 0.6); }
   .btn-brand:hover { background: var(--lime); }
+  .btn-purple { background: var(--purple); color: #fff; box-shadow: 0 8px 24px -8px rgba(147, 0, 254, 0.7); }
+  .btn-purple:hover { background: var(--purple-2); }
   .btn-ghost { border: 1px solid var(--line-2); color: var(--text); }
   .btn-ghost:hover { border-color: var(--lime); }
   .link-quiet { color: var(--muted); font-size: 0.9rem; }
@@ -728,6 +730,10 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
      mixed sources read as one brand system. */
   .duo { position: relative; overflow: hidden; background: #172a00; margin: 0; }
   .duo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) sepia(1) hue-rotate(38deg) saturate(1.9) contrast(1.1) brightness(0.78); transition: transform 0.6s; }
+  /* Purple duotone for the hero photo and the live-fire band. */
+  .duo.duo-purple { background: #2a0b4d; }
+  .duo.duo-purple img { filter: grayscale(1) sepia(1) hue-rotate(228deg) saturate(2.2) contrast(1.1) brightness(0.8); }
+  .duo.duo-purple::after { background: linear-gradient(160deg, rgba(147, 0, 254, 0.35), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.55), transparent 55%); }
   .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(132, 189, 0, 0.25), transparent 55%), linear-gradient(0deg, rgba(7, 10, 8, 0.55), transparent 55%); pointer-events: none; }
 
   .hero-in > * { min-width: 0; }
@@ -739,7 +745,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
 
   .floor { position: relative; min-height: 640px; display: grid; align-items: end; border-bottom: 1px solid var(--line); }
   .floor-img { position: absolute; inset: 0; }
-  .floor-img::after { background: linear-gradient(90deg, rgba(7, 10, 8, 0.92) 0%, rgba(7, 10, 8, 0.55) 45%, rgba(7, 10, 8, 0.1) 100%), linear-gradient(0deg, rgba(7, 10, 8, 0.9), transparent 45%); }
+  .floor-img.duo::after { background: linear-gradient(90deg, rgba(7, 10, 8, 0.92) 0%, rgba(7, 10, 8, 0.55) 45%, rgba(7, 10, 8, 0.1) 100%), linear-gradient(0deg, rgba(7, 10, 8, 0.9), transparent 45%); }
   .floor-in { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; padding: 9rem 0 4.5rem; }
   .floor-copy p:not(.eyebrow) { color: #d1d9d3; font-size: 1.12rem; margin-top: 1.25rem; max-width: 32rem; }
   .chips { display: grid; gap: 0.75rem; justify-items: end; }
