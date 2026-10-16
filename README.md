@@ -13,8 +13,8 @@ npm run build    # static output in dist/
 | Route        | Concept          | Direction                                                                 |
 | ------------ | ---------------- | ------------------------------------------------------------------------- |
 | `/`          | Review hub       | Concept cards, Lighthouse results, competitive read of all 12 sites        |
-| `/concept-a` | **Command**      | Dark, product-led. The hero is a live Performance Portal mock.             |
-| `/concept-b` | **The Exercise** | Light, editorial serif. The page tells one live-fire exercise, minute by minute. |
+| `/concept-a` | **Command**      | Dark, product-led. Portal mock over duotone photography, exercise band, product visuals. |
+| `/concept-b` | **The Exercise** | Light, DM Serif Display + Poppins. One live-fire exercise, minute by minute. |
 | `/concept-c` | **Live-Fire**    | Loud, stencil type, full-bleed purple, animated attack-path diagram.       |
 
 A floating switcher at the bottom of each concept is for review only.
@@ -26,10 +26,10 @@ Pulled from the live Squarespace theme (`site.css` / `custom.css`):
 | Token  | Hex       | Role in concepts                                      |
 | ------ | --------- | ----------------------------------------------------- |
 | Purple | `#9300FE` | Primary brand + CTA color                              |
-| Green  | `#84BD00` | Logo, "defended / detected / pass" signal              |
+| Green  | `#84BD00` | Humans / defense / "detected" signal (logo green is `#79B92F`) |
 | Orange | `#FF8500` | Warnings, "contained", focus ring, secondary accent    |
 
-The shield mark and stencil wordmark in `src/components/Logo.astro` are a recreation. Swap in the official SVG before launch.
+The logo in `public/brand/` is the official mark, converted from the color JPG on the live site into transparent dark- and light-text PNGs. Swap in the brand SVG when we have it.
 
 ## Structure
 
@@ -37,7 +37,7 @@ The shield mark and stencil wordmark in `src/components/Logo.astro` are a recrea
 - `src/pages/concept-*.astro`: each concept is self-contained, with styles scoped to the page.
 - Zero client-side JavaScript. Menus use `:hover`/`:focus-within` and `<details>`, and motion is CSS-only (it respects `prefers-reduced-motion`).
 
-## Lighthouse (local production build, desktop / mobile)
+## Lighthouse (local production build, desktop / mobile; last run before photos and font changes)
 
 | Concept | Performance | Accessibility | Best practices | SEO |
 | ------- | ----------- | ------------- | -------------- | --- |
@@ -50,5 +50,6 @@ For comparison, competitor desktop performance ranges from 99 (SimSpace) to 29 (
 ## Placeholders to replace
 
 - Customer logos are rendered as text. Replace them with monochrome SVGs.
+- Photos in `src/assets/photos/` are public-domain civilian placeholders (see `CREDITS.md`). Concept A shows them with a CSS purple duotone, so brand or stock photography drops straight in.
 - Product UI in the heroes (scores, timelines, report card) is illustrative mock data.
 - All links other than in-page anchors point to `#`.
