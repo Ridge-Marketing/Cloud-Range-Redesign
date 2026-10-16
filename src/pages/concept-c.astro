@@ -408,6 +408,12 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .steps h3 { font-size: 2rem; }
   .steps p { color: var(--muted); }
 
+  /* Bone section: swaps tokens so text, lines and muted copy flip to ink. */
+  .proof { --ink: #0a0a0a; --muted: #5c584f; --line: rgba(10, 10, 10, 0.14); background: #f3efe6; color: var(--ink); border-bottom: 0; }
+  .proof .q figcaption { color: #0a0a0a; }
+  .proof .award { background: #0a0a0a; color: #f3efe6; border-color: #0a0a0a; }
+  .proof .award .k { color: #a8a397; }
+  .proof .logos li { color: #6e6a61; }
   .proof .wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: center; }
   .q blockquote { font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; text-transform: uppercase; }
   .q figcaption { margin-top: 1.5rem; color: var(--hi); }
