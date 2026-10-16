@@ -1,7 +1,7 @@
 ---
 // Concept C — "Live-Fire"
 // Loud, high-contrast, brand-forward. Leans on the stencil wordmark and the
-// brand purple + green to own a look nobody else in the category has.
+// hazard yellow on ink: range-signage energy that no competitor owns.
 // All motion is CSS-only.
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
@@ -89,7 +89,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
             <div class="topo-scroll"><svg viewBox="0 0 640 320" role="img">
               <defs>
                 <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                  <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.08)" />
+                  <circle cx="1" cy="1" r="1" fill="rgba(243,239,230,0.08)" />
                 </pattern>
               </defs>
               <rect width="640" height="320" fill="url(#dots)" />
@@ -281,14 +281,14 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
 
 <style>
   .c {
-    --bg:     #000;
-    --bg-2:   #0d0b11;
-    --ink:    #f5f2f8;
-    --muted:  #958e9e;
-    --line:   rgba(255, 255, 255, 0.12);
-    --lime:   #a3e000;
-    --purp:   #9300fe;
-    --purp-t: #c08bff;
+    --bg:     #09090b;
+    --bg-2:   #121214;
+    --ink:    #f3efe6;
+    --muted:  #9a968c;
+    --line:   rgba(243, 239, 230, 0.12);
+    --hi:     #ffd60a;
+    --hi-2:   #ffe55c;
+    --ice:    #8fd3ff;
     --red:    #ff4d3d;
     background: var(--bg);
     color: var(--ink);
@@ -304,134 +304,132 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   h2 { font-size: clamp(2.4rem, 6vw, 5rem); }
   h3 { font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1.05; }
   a { text-decoration: none; }
-  .hl { color: var(--lime); }
+  .hl { color: var(--hi); }
 
-  .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--purp); color: #fff; font-weight: 700; font-size: 0.9rem; padding: 0.7rem 1.1rem; text-transform: uppercase; letter-spacing: 0.02em; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); transition: background 0.2s, transform 0.2s; white-space: nowrap; }
-  .btn:hover { background: var(--lime); color: #000; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--hi); color: #0a0a0a; font-weight: 700; font-size: 0.9rem; padding: 0.7rem 1.1rem; text-transform: uppercase; letter-spacing: 0.02em; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+  .btn:hover { background: var(--ink); color: #0a0a0a; }
   .btn-xl { padding: 1.1rem 1.6rem; font-size: 1rem; }
   .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); clip-path: none; }
-  .btn-ghost:hover { background: transparent; box-shadow: inset 0 0 0 1.5px var(--purp-t); color: var(--purp-t); }
-  .btn-dark { background: #000; color: var(--lime); }
-  .btn-dark:hover { background: #1a1a1a; color: #fff; }
+  .btn-ghost:hover { background: transparent; box-shadow: inset 0 0 0 1.5px var(--hi); color: var(--hi); }
+  .btn-dark { background: #0a0a0a; color: var(--hi); }
+  .btn-dark:hover { background: #1f1f22; color: var(--ink); }
 
-  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
   .hdr-in { display: flex; align-items: center; gap: 2rem; height: 64px; }
   .menu { display: flex; margin-left: auto; }
   .menu-item { position: relative; }
   .menu-item > button { background: none; border: 0; color: var(--ink); padding: 0.5rem 0.9rem; font: 600 0.78rem 'JetBrains Mono Variable', monospace; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; }
-  .menu-item:hover > button, .menu-item:focus-within > button { color: var(--purp-t); }
-  .drop { position: absolute; top: 100%; left: 0; min-width: 260px; background: var(--purp); padding: 0.75rem; opacity: 0; visibility: hidden; transform: translateY(8px); transition: 0.15s; }
+  .menu-item:hover > button, .menu-item:focus-within > button { color: var(--hi); }
+  .drop { position: absolute; top: 100%; left: 0; min-width: 260px; background: var(--hi); padding: 0.75rem; opacity: 0; visibility: hidden; transform: translateY(8px); transition: 0.15s; }
   .menu-item:hover .drop, .menu-item:focus-within .drop { opacity: 1; visibility: visible; transform: translateY(12px); }
   .drop::before { content: ''; position: absolute; inset: -14px 0 auto; height: 14px; }
-  .drop a { display: block; color: #fff; font-weight: 600; padding: 0.45rem 0.5rem; }
-  .drop a:hover { background: #000; color: var(--lime); }
+  .drop a { display: block; color: #0a0a0a; font-weight: 600; padding: 0.45rem 0.5rem; }
+  .drop a:hover { background: #0a0a0a; color: var(--hi); }
   .mnav { display: none; }
 
   .hero { padding: 4rem 0 0; position: relative; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(50% 50% at 80% 10%, rgba(147, 0, 254, 0.35), transparent); pointer-events: none; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(50% 50% at 80% 10%, rgba(255, 214, 10, 0.12), transparent); pointer-events: none; }
   .hero > .wrap { position: relative; z-index: 1; }
   .hero-k { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; color: var(--ink); }
   .rec { width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 12px var(--red); animation: blink 1.2s steps(2) infinite; }
   @keyframes blink { 50% { opacity: 0.2; } }
   h1 { font-size: clamp(3.2rem, 11vw, 10.5rem); display: grid; }
-  h1 .stencil { color: var(--lime); font-size: 1.08em; line-height: 0.95; }
+  h1 .stencil { color: var(--hi); font-size: 1.08em; line-height: 0.95; }
   h1 .stencil i { color: var(--ink); font-style: normal; }
-  /* Outline text: the fill is painted over a double-width stroke, which hides the
-     variable font's overlapping contours and leaves a clean outer outline. */
-  h1 .out { color: var(--bg); -webkit-text-stroke: 4px rgba(255, 255, 255, 0.6); paint-order: stroke fill; }
-  @supports not (-webkit-text-stroke: 1px #fff) { h1 .out { color: #5f6762; } }
+  h1 .out { color: transparent; -webkit-text-stroke: 2px rgba(243, 239, 230, 0.6); }
+  @supports not (-webkit-text-stroke: 1px #fff) { h1 .out { color: #6b675f; } }
   .hero-row { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end; margin-top: 2.75rem; padding-bottom: 3rem; }
-  .lede { font-size: 1.15rem; color: #c3cac5; max-width: 38rem; }
+  .lede { font-size: 1.15rem; color: #cfcabf; max-width: 38rem; }
   .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
   .topo { border: 1px solid var(--line); background: var(--bg-2); margin-bottom: -1px; }
   .topo-scroll { overflow-x: auto; }
   .topo svg { width: 100%; min-width: 600px; height: auto; max-height: 420px; }
-  .ln { stroke: rgba(255, 255, 255, 0.16); stroke-width: 1.5; }
+  .ln { stroke: rgba(243, 239, 230, 0.16); stroke-width: 1.5; }
   .atk { fill: none; stroke: var(--red); stroke-width: 2.5; stroke-dasharray: 8 6; animation: march 1s linear infinite; filter: drop-shadow(0 0 6px rgba(255, 77, 61, 0.6)); }
   @keyframes march { to { stroke-dashoffset: -14; } }
-  .nd rect { fill: #111311; stroke: rgba(255, 255, 255, 0.3); stroke-width: 1.5; }
+  .nd rect { fill: #141416; stroke: rgba(243, 239, 230, 0.3); stroke-width: 1.5; }
   .nd text { fill: var(--muted); font: 600 10px 'JetBrains Mono Variable', monospace; text-anchor: middle; text-transform: uppercase; letter-spacing: 0.06em; }
   .nd.red rect { fill: var(--red); stroke: var(--red); }
   .nd.hit rect { stroke: var(--red); fill: #2a1311; }
-  .nd.blue rect { stroke: var(--lime); fill: #1b2508; }
-  .nd.blue text { fill: var(--lime); }
-  .topo figcaption { display: flex; flex-wrap: wrap; gap: 0.75rem 1.75rem; padding: 1rem 1.25rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: #c3cac5; align-items: center; }
+  .nd.blue rect { stroke: var(--ice); fill: #0f2230; }
+  .nd.blue text { fill: var(--ice); }
+  .topo figcaption { display: flex; flex-wrap: wrap; gap: 0.75rem 1.75rem; padding: 1rem 1.25rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: #cfcabf; align-items: center; }
   .topo figcaption .k { margin-left: auto; }
   .sw { display: inline-block; width: 10px; height: 10px; margin-right: 0.45rem; vertical-align: -1px; }
   .sw.red { background: var(--red); }
   .sw.hit { border: 1.5px solid var(--red); }
-  .sw.blue { background: var(--lime); }
+  .sw.blue { background: var(--ice); }
 
-  .ticker { background: var(--purp); color: #fff; overflow: hidden; padding: 0.9rem 0; }
+  .ticker { background: var(--hi); color: #0a0a0a; overflow: hidden; padding: 0.9rem 0; }
   .ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
   .ticker span { font: 700 0.9rem 'JetBrains Mono Variable', monospace; text-transform: uppercase; white-space: nowrap; padding-right: 1.5rem; }
-  .ticker b { margin-left: 1.5rem; color: var(--lime); }
+  .ticker b { margin-left: 1.5rem; color: var(--red); }
   @keyframes scroll { to { transform: translateX(-50%); } }
 
   .stats { border-bottom: 1px solid var(--line); }
   .stats-in { display: grid; grid-template-columns: repeat(4, 1fr); }
   .stats-in > div { padding: 3.5rem 1.5rem 3rem; border-left: 1px solid var(--line); }
   .stats-in > div:last-child { border-right: 1px solid var(--line); }
-  .stat { font-family: 'Saira Stencil One', sans-serif; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 1; color: var(--lime); }
+  .stat { font-family: 'Saira Stencil One', sans-serif; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 1; color: var(--hi); }
   .stat span { font-size: 0.5em; vertical-align: top; color: var(--ink); }
   .stats-in p:last-child { color: var(--muted); margin-top: 0.75rem; max-width: 15rem; }
 
   .sec { padding: 7rem 0; border-bottom: 1px solid var(--line); }
   .sec-head { margin-bottom: 3.5rem; display: grid; gap: 1.25rem; max-width: 60rem; }
   .sec-head.row { max-width: none; display: flex; justify-content: space-between; align-items: end; }
-  .sec-head .k { color: var(--purp-t); }
+  .sec-head .k { color: var(--hi); }
 
   .prods { border-top: 1px solid var(--line); }
   .prod { display: grid; grid-template-columns: 5rem 1.6fr 1fr 2.5rem; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--line); color: var(--ink); position: relative; transition: padding 0.25s, color 0.25s; }
-  .prod::before { content: ''; position: absolute; inset: 0; background: var(--purp); transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s; z-index: 0; }
+  .prod::before { content: ''; position: absolute; inset: 0; background: var(--hi); transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s; z-index: 0; }
   .prod > * { position: relative; z-index: 1; }
-  .prod:hover { color: #fff; padding-inline: 1.5rem; }
+  .prod:hover { color: #0a0a0a; padding-inline: 1.5rem; }
   .prod:hover::before { transform: scaleY(1); }
-  .prod:hover p, .prod:hover .k { color: rgba(255, 255, 255, 0.88); }
-  .prod-n { font-family: 'Saira Stencil One', sans-serif; font-size: 2.4rem; color: var(--lime); }
-  .prod:hover .prod-n { color: var(--lime); }
+  .prod:hover p, .prod:hover .k { color: rgba(10, 10, 10, 0.8); }
+  .prod-n { font-family: 'Saira Stencil One', sans-serif; font-size: 2.4rem; color: var(--hi); }
+  .prod:hover .prod-n { color: #0a0a0a; }
   .prod h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 0.5rem; }
   .prod p { color: var(--muted); max-width: 36rem; }
   .prod-go { font-size: 1.6rem; justify-self: end; }
 
-  .ai { background: var(--purp); color: #fff; padding: 7rem 0; background-image: radial-gradient(60% 100% at 100% 100%, rgba(255, 133, 0, 0.35), transparent 60%); }
+  .ai { background: var(--hi); color: #0a0a0a; padding: 7rem 0; background-image: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(10, 10, 10, 0.05) 22px 44px); }
   .ai-in { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: end; }
-  .ai .k { color: #fff; margin-bottom: 1.25rem; }
+  .ai .k { color: #0a0a0a; margin-bottom: 1.25rem; }
   .ai h2 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); }
   .ai p:not(.k) { font-size: 1.2rem; font-weight: 500; margin-bottom: 2rem; }
 
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
   .steps li { padding: 2rem; display: grid; gap: 1rem; align-content: start; }
   .steps li + li { border-left: 1px solid var(--line); }
-  .step-n { font-size: 4.5rem; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--lime); }
+  .step-n { font-size: 4.5rem; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--hi); }
   .steps h3 { font-size: 2rem; }
   .steps p { color: var(--muted); }
 
   .proof .wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: center; }
   .q blockquote { font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; text-transform: uppercase; }
-  .q figcaption { margin-top: 1.5rem; color: var(--purp-t); }
-  .award { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; border: 1px solid var(--purp); }
-  .award-badge { background: var(--purp); color: #fff; font-size: 1.6rem; padding: 0.8rem 0.9rem; flex-shrink: 0; }
+  .q figcaption { margin-top: 1.5rem; color: var(--hi); }
+  .award { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; border: 1px solid var(--hi); }
+  .award-badge { background: var(--hi); color: #0a0a0a; font-size: 1.6rem; padding: 0.8rem 0.9rem; flex-shrink: 0; }
   .award-t { font-size: 1.35rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.5rem; }
   .logos { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2.5rem; padding-top: 3rem; border-top: 1px solid var(--line); }
-  .logos li { font-weight: 800; font-size: 1.2rem; color: #5d645f; text-transform: uppercase; letter-spacing: -0.02em; }
+  .logos li { font-weight: 800; font-size: 1.2rem; color: #77736b; text-transform: uppercase; letter-spacing: -0.02em; }
 
   .ind { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .ind a { display: grid; gap: 1rem; align-content: space-between; min-height: 260px; padding: 1.75rem; background: var(--bg); color: var(--ink); transition: background 0.2s; }
   .ind a:hover { background: var(--bg-2); }
-  .ind a:hover h3 { color: var(--purp-t); }
+  .ind a:hover h3 { color: var(--hi); }
   .ind p { color: var(--muted); font-size: 0.92rem; }
 
   .posts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   .posts a { position: relative; display: grid; gap: 2.5rem; align-content: space-between; min-height: 240px; padding: 1.5rem; background: var(--bg-2); border: 1px solid var(--line); color: var(--ink); transition: border-color 0.2s; }
-  .posts a:hover { border-color: var(--purp); }
+  .posts a:hover { border-color: var(--hi); }
   .posts h3 { font-size: 1.25rem; text-transform: none; letter-spacing: -0.02em; line-height: 1.2; font-weight: 700; }
-  .posts .prod-go { position: absolute; top: 1.1rem; right: 1.25rem; font-size: 1.2rem; color: var(--purp-t); }
+  .posts .prod-go { position: absolute; top: 1.1rem; right: 1.25rem; font-size: 1.2rem; color: var(--hi); }
 
-  .cta { background: var(--purp); color: #fff; padding: 6rem 0 5rem; }
+  .cta { background: var(--hi); color: #0a0a0a; padding: 6rem 0 5rem; }
   .cta h2 { font-size: clamp(4rem, 15vw, 13rem); line-height: 0.85; }
-  .cta-row { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid rgba(255, 255, 255, 0.6); }
+  .cta-row { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #0a0a0a; }
   .cta-row p { font-size: 1.25rem; font-weight: 500; max-width: 32rem; }
 
   .ftr { padding: 4rem 0 6rem; }
@@ -439,17 +437,17 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   .ftr-brand { display: grid; gap: 1.25rem; align-content: start; color: var(--muted); font-size: 0.9rem; }
   .ftr-brand a { color: var(--ink); }
   .ftr ul { display: grid; gap: 0.5rem; margin-top: 1rem; }
-  .ftr li a { color: #c3cac5; font-size: 0.9rem; }
-  .ftr li a:hover { color: var(--purp-t); }
+  .ftr li a { color: #cfcabf; font-size: 0.9rem; }
+  .ftr li a:hover { color: var(--hi); }
   .ftr-legal { display: flex; justify-content: space-between; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .ftr-legal a { color: inherit; }
 
   @media (max-width: 1080px) {
     .menu, .hdr-in > .btn { display: none; }
     .mnav { display: block; margin-left: auto; }
-    .mnav > summary { font-size: 1.6rem; line-height: 1; width: 42px; height: 42px; display: grid; place-items: center; background: var(--purp); color: #fff; }
-    .mnav-panel { position: absolute; left: 0; right: 0; top: 64px; background: #000; border-bottom: 1px solid var(--line); padding: 1.5rem 16px 2rem; display: grid; gap: 1.5rem; max-height: calc(100vh - 64px); overflow-y: auto; }
-    .mnav-panel .k { color: var(--purp-t); }
+    .mnav > summary { font-size: 1.6rem; line-height: 1; width: 42px; height: 42px; display: grid; place-items: center; background: var(--hi); color: #0a0a0a; }
+    .mnav-panel { position: absolute; left: 0; right: 0; top: 64px; background: var(--bg); border-bottom: 1px solid var(--line); padding: 1.5rem 16px 2rem; display: grid; gap: 1.5rem; max-height: calc(100vh - 64px); overflow-y: auto; }
+    .mnav-panel .k { color: var(--hi); }
     .mnav-panel ul { display: grid; gap: 0.5rem; margin-top: 0.5rem; }
     .hero-row, .ai-in, .proof .wrap { grid-template-columns: 1fr; gap: 2rem; }
     .stats-in { grid-template-columns: 1fr 1fr; }
@@ -467,7 +465,7 @@ const path = attack.map((id, i) => `${i ? 'L' : 'M'}${pos[id].x} ${pos[id].y}`).
   }
   @media (max-width: 640px) {
     .hero { padding-top: 2.5rem; }
-    h1 .out { -webkit-text-stroke-width: 2.5px; }
+    h1 .out { -webkit-text-stroke-width: 1.25px; }
     .sec, .ai { padding: 4.5rem 0; }
     .topo figcaption .k { margin-left: 0; }
     .stats-in > div { padding: 2rem 1rem; }

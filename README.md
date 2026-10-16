@@ -15,7 +15,7 @@ npm run build    # static output in dist/
 | `/`          | Review hub       | Concept cards, Lighthouse results, competitive read of all 12 sites        |
 | `/concept-a` | **Command**      | Dark, product-led. Portal mock over duotone photography, exercise band, product visuals. |
 | `/concept-b` | **The Exercise** | Light, DM Serif Display + Poppins. One live-fire exercise, minute by minute. |
-| `/concept-c` | **Live-Fire**    | Loud, stencil type, full-bleed purple, animated attack-path diagram.       |
+| `/concept-c` | **Live-Fire**    | Loud, stencil type, hazard yellow `#FFD60A` on ink, animated attack-path diagram. |
 
 A floating switcher at the bottom of each concept is for review only.
 
