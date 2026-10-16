@@ -200,7 +200,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
       </section>
 
       <!-- PROBLEM -->
-      <section class="sec">
+      <section class="sec light">
         <div class="wrap split">
           <div>
             <p class="eyebrow mono">// The readiness gap</p>
@@ -326,7 +326,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
       </section>
 
       <!-- HOW -->
-      <section class="sec" id="how">
+      <section class="sec light" id="how">
         <div class="wrap">
           <div class="sec-head">
             <p class="eyebrow mono">// How it works</p>
@@ -383,7 +383,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
       </section>
 
       <!-- PROOF -->
-      <section class="sec" id="award">
+      <section class="sec light proof-sec" id="award">
         <div class="wrap proof">
           <figure class="quote">
             <blockquote>“{quote.text}”</blockquote>
@@ -398,7 +398,7 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
       </section>
 
       <!-- RESOURCES -->
-      <section class="sec" id="resources">
+      <section class="sec light posts-sec" id="resources">
         <div class="wrap">
           <div class="sec-head row">
             <div>
@@ -571,6 +571,34 @@ const bars = [62, 58, 51, 47, 40, 34, 29, 24, 21];
 
   /* Sections */
   .sec { padding: 7rem 0; border-bottom: 1px solid var(--line); }
+
+  /* Light sections: same components, tokens swapped. Green shifts darker so it
+     still reads as "humans / defense" with text-level contrast on white. */
+  .light {
+    --bg:       #f6f5f9;
+    --bg-2:     #ffffff;
+    --panel:    #ffffff;
+    --line:     #e3e0ea;
+    --line-2:   #d6d1e0;
+    --text:     #120f1a;
+    --muted:    #5e5869;
+    --lime:     #4c8a00;
+    --purple-t: #7a1fd6;
+    background: var(--bg);
+    color: var(--text);
+    border-bottom-color: var(--line);
+  }
+  .light .new { background: linear-gradient(160deg, rgba(132, 189, 0, 0.14), #fff 70%); }
+  .light .old li { text-decoration-color: rgba(214, 48, 48, 0.55); }
+  .light .steps li::before { background: #84bd00; }
+  .light .steps li { background: #fff; }
+  .light .steps { box-shadow: 0 20px 40px -28px rgba(30, 10, 60, 0.2); }
+  .light .quote { box-shadow: 0 20px 40px -28px rgba(30, 10, 60, 0.25); }
+  .light .award { background: linear-gradient(160deg, rgba(255, 133, 0, 0.14), #fff 70%); border-color: rgba(255, 133, 0, 0.5); }
+  .light .award .label { color: #a34f00; }
+  .light .posts a:hover { border-color: var(--purple); }
+  .proof-sec { padding-bottom: 3rem; border-bottom: 0; }
+  .posts-sec { padding-top: 3rem; }
   .sec-head { max-width: 46rem; margin-bottom: 3.5rem; }
   .sec-head.row { max-width: none; display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
   .sec-head p.muted { font-size: 1.1rem; margin-top: 1rem; }
